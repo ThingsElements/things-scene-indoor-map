@@ -71,6 +71,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
+var _floor = require('./floor');
+
+var _floor2 = _interopRequireDefault(_floor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -81,10 +87,11 @@ var _scene = scene;
 var Component = _scene.Component;
 var Container = _scene.Container;
 var CardLayout = _scene.CardLayout;
+var Model = _scene.Model;
 
 
-var CONTROL_WIDTH = 50;
-var CONTROL_HEIGHT = 50;
+var LABEL_WIDTH = 50;
+var LABEL_HEIGHT = 50;
 
 function rgba(r, g, b, a) {
   return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
@@ -108,10 +115,10 @@ var IndoorMap = function (_Container) {
       var fillStyle = _model.fillStyle;
 
 
-      for (var i = 0; i < this.components.length; i++) {
+      for (var i = 0; i <= this.components.length; i++) {
         context.beginPath();
 
-        context.rect(left - CONTROL_WIDTH, top + i * CONTROL_HEIGHT, CONTROL_WIDTH, CONTROL_HEIGHT);
+        context.rect(left - LABEL_WIDTH, top + i * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
 
         var color = 255 - 20 * (i + 1) % 255;
         context.fillStyle = rgba(color, color, color, 1);
@@ -133,14 +140,20 @@ var IndoorMap = function (_Container) {
       var top = _bounds.top;
 
 
-      left = left - CONTROL_WIDTH;
-      var h = CONTROL_HEIGHT * this.components.length;
+      left = left - LABEL_WIDTH;
+      var h = LABEL_HEIGHT * (this.components.length + 1);
 
-      return x < Math.max(left + CONTROL_WIDTH, left) && x > Math.min(left + CONTROL_WIDTH, left) && y < Math.max(top + h, top) && y > Math.min(top + h, top);
+      return x < Math.max(left + LABEL_WIDTH, left) && x > Math.min(left + LABEL_WIDTH, left) && y < Math.max(top + h, top) && y > Math.min(top + h, top);
     }
   }, {
-    key: 'onclick',
-    value: function onclick(e) {
+    key: 'onmouseup',
+    value: function onmouseup(e) {
+      var down_point = this.__down_point;
+      delete this.__down_point;
+
+      if (!down_point || down_point.x != e.offsetX || down_point.y != e.offsetY) {
+        return;
+      }
 
       var point = this.transcoordC2S(e.offsetX, e.offsetY);
 
@@ -154,15 +167,35 @@ var IndoorMap = function (_Container) {
 
       if (x > 0) return;
 
-      y /= CONTROL_HEIGHT;
+      y /= LABEL_HEIGHT;
       y = Math.floor(y);
 
       if (!this.layoutConfig) this.layoutConfig = {};
+
+      if (y > this.components.length) return;
+
+      /* 생성 버튼이 클릭되면, 새로운 floor를 추가한다. */
+      if (y == this.components.length) {
+        this.add(Model.compile({
+          type: 'floor',
+          width: 100,
+          height: 100,
+          fillStyle: 'black'
+        }));
+      }
 
       var config = Object.assign({}, this.layoutConfig);
 
       config.activeIndex = y;
       this.set('layoutConfig', config);
+    }
+  }, {
+    key: 'onmousedown',
+    value: function onmousedown(e) {
+      this.__down_point = {
+        x: e.offsetX,
+        y: e.offsetY
+      };
     }
   }, {
     key: 'layout',
@@ -179,4 +212,4 @@ exports.default = IndoorMap;
 
 Component.register('indoor-map', IndoorMap);
 
-},{}]},{},[1,2,3]);
+},{"./floor":1}]},{},[1,2,3]);
