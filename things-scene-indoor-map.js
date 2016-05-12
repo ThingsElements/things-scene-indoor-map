@@ -222,8 +222,7 @@ var IndoorMap = function (_Container) {
         this.add(Model.compile({
           type: 'floor',
           width: 100,
-          height: 100,
-          fillStyle: 'black'
+          height: 100
         }));
       }
 
