@@ -101,9 +101,18 @@ Object.defineProperty(exports, 'IndoorMap', {
   }
 });
 
+var _tableLayout = require('./table-layout');
+
+Object.defineProperty(exports, 'TableLayout', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_tableLayout).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./floor":1,"./indoor-map":3}],3:[function(require,module,exports){
+},{"./floor":1,"./indoor-map":3,"./table-layout":4}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -255,4 +264,58 @@ exports.default = IndoorMap;
 
 Component.register('indoor-map', IndoorMap);
 
-},{"./floor":1}]},{},[1,2,3]);
+},{"./floor":1}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _scene = scene;
+var Layout = _scene.Layout;
+
+
+var TableLayout = {
+  reflow: function reflow(container) {
+    var layoutConfig = container.get('layoutConfig');
+    var columns = layoutConfig && layoutConfig.columns || 3;
+
+    var rows = Math.ceil(container.components.length / columns);
+
+    var componentWidth = container.bounds.width / columns;
+    var componentHeight = container.bounds.height / rows;
+
+    var colNum = 0;
+    var rowNum = 0;
+
+    container.components.forEach(function (component, idx) {
+      colNum = idx % columns;
+      rowNum = Math.floor(idx / columns);
+      component.bounds = {
+        left: colNum * componentWidth,
+        top: rowNum * componentHeight,
+        width: componentWidth,
+        height: componentHeight
+      };
+
+      component.set('rotation', 0);
+    });
+  },
+
+  capturables: function capturables(container) {
+    return container.components;
+  },
+
+  drawables: function drawables(container) {
+    return container.components;
+  },
+
+  isStuck: function isStuck(component) {
+    return true;
+  }
+};
+
+Layout.register('table', TableLayout);
+
+exports.default = TableLayout;
+
+},{}]},{},[1,2,3]);
