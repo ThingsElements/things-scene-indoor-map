@@ -17,6 +17,8 @@ export default class IndoorMap extends Container {
 
   _draw(context) {
 
+    super._draw(context)
+
     var { left, top, fillStyle } = this.model
 
     for(let i = 0;i <= this.components.length;i++) {
@@ -32,7 +34,6 @@ export default class IndoorMap extends Container {
       context.closePath();
     }
 
-    super._draw(context)
   }
 
   contains(x, y) {

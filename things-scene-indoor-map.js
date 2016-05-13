@@ -152,6 +152,9 @@ var IndoorMap = function (_Container) {
   _createClass(IndoorMap, [{
     key: '_draw',
     value: function _draw(context) {
+
+      _get(Object.getPrototypeOf(IndoorMap.prototype), '_draw', this).call(this, context);
+
       var _model = this.model;
       var left = _model.left;
       var top = _model.top;
@@ -169,8 +172,6 @@ var IndoorMap = function (_Container) {
 
         context.closePath();
       }
-
-      _get(Object.getPrototypeOf(IndoorMap.prototype), '_draw', this).call(this, context);
     }
   }, {
     key: 'contains',
