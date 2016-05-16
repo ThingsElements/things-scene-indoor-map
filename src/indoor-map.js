@@ -28,18 +28,17 @@ export default class IndoorMap extends Container {
 
     var { left, top, width, fillStyle } = this.model
 
-    for(let i = 0;i < 2 ;i++) {
-      context.beginPath();
 
-      context.rect(left + width, top + i * LABEL_HEIGHT,
-        LABEL_WIDTH, LABEL_HEIGHT)
+    // 이동 핸들 그리기
+    context.beginPath();
 
-      let color = 255 - (20 * (i + 1)) % 255
-      context.fillStyle = rgba(color, color, color, 1)
-      context.fill()
+    context.rect(left + width, top, LABEL_WIDTH, LABEL_HEIGHT)
 
-      context.closePath();
-    }
+    let color = 255 - 20 % 255
+    context.fillStyle = rgba(color, color, color, 1)
+    context.fill()
+
+    context.closePath();
 
   }
 
@@ -77,8 +76,6 @@ export default class IndoorMap extends Container {
     var x = point.x - right
     var y = point.y - top
 
-    console.log(x, y)
-
     if(x < 0)
       return
 
@@ -88,24 +85,6 @@ export default class IndoorMap extends Container {
     if(!this.layoutConfig)
       this.layoutConfig = {}
 
-    if(y > 1)
-      return
-
-    /* 생성 버튼이 클릭되면, 새로운 floor를 추가한다. */
-    if(y == 1) {
-      this.add(Model.compile({
-        type: 'floor',
-        width: 100,
-        height: 100
-      }))
-
-      this.activeIndex = this.components.length
-    }
-
-    // var config = Object.assign({}, this.layoutConfig)
-
-    // config.activeIndex = y
-    // this.set('layoutConfig', config)
   }
 
   onmousedown(e) {
