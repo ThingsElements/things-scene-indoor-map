@@ -142,8 +142,8 @@ var CardLayout = _scene.CardLayout;
 var Model = _scene.Model;
 
 
-var LABEL_WIDTH = 50;
-var LABEL_HEIGHT = 50;
+var LABEL_WIDTH = 25;
+var LABEL_HEIGHT = 25;
 
 function rgba(r, g, b, a) {
   return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
@@ -167,13 +167,14 @@ var IndoorMap = function (_Container) {
       var _model = this.model;
       var left = _model.left;
       var top = _model.top;
+      var width = _model.width;
       var fillStyle = _model.fillStyle;
 
 
-      for (var i = 0; i <= this.components.length; i++) {
+      for (var i = 0; i < 2; i++) {
         context.beginPath();
 
-        context.rect(left - LABEL_WIDTH, top + i * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
+        context.rect(left + width, top + i * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
 
         var color = 255 - 20 * (i + 1) % 255;
         context.fillStyle = rgba(color, color, color, 1);
@@ -191,12 +192,14 @@ var IndoorMap = function (_Container) {
       var _bounds = this.bounds;
       var left = _bounds.left;
       var top = _bounds.top;
+      var width = _bounds.width;
 
 
-      left = left - LABEL_WIDTH;
+      var right = left + width;
+
       var h = LABEL_HEIGHT * (this.components.length + 1);
 
-      return x < Math.max(left + LABEL_WIDTH, left) && x > Math.min(left + LABEL_WIDTH, left) && y < Math.max(top + h, top) && y > Math.min(top + h, top);
+      return x < Math.max(right + LABEL_WIDTH, right) && x > Math.min(right + LABEL_WIDTH, right) && y < Math.max(top + h, top) && y > Math.min(top + h, top);
     }
   }, {
     key: 'onmouseup',
@@ -213,33 +216,40 @@ var IndoorMap = function (_Container) {
       var _model2 = this.model;
       var left = _model2.left;
       var top = _model2.top;
+      var width = _model2.width;
 
 
-      var x = point.x - left;
+      var right = left + width;
+
+      var x = point.x - right;
       var y = point.y - top;
 
-      if (x > 0) return;
+      console.log(x, y);
+
+      if (x < 0) return;
 
       y /= LABEL_HEIGHT;
       y = Math.floor(y);
 
       if (!this.layoutConfig) this.layoutConfig = {};
 
-      if (y > this.components.length) return;
+      if (y > 1) return;
 
       /* 생성 버튼이 클릭되면, 새로운 floor를 추가한다. */
-      if (y == this.components.length) {
+      if (y == 1) {
         this.add(Model.compile({
           type: 'floor',
           width: 100,
           height: 100
         }));
+
+        this.activeIndex = this.components.length;
       }
 
-      var config = Object.assign({}, this.layoutConfig);
+      // var config = Object.assign({}, this.layoutConfig)
 
-      config.activeIndex = y;
-      this.set('layoutConfig', config);
+      // config.activeIndex = y
+      // this.set('layoutConfig', config)
     }
   }, {
     key: 'onmousedown',
