@@ -254,6 +254,14 @@ var IndoorMap = function (_Container) {
     get: function get() {
       return CardLayout;
     }
+  }, {
+    key: 'activeIndex',
+    set: function set(index) {
+      var config = Object.assign({}, this.layoutConfig);
+
+      config.activeIndex = index;
+      this.set('layoutConfig', config);
+    }
   }]);
 
   return IndoorMap;
@@ -318,4 +326,4 @@ Layout.register('table', TableLayout);
 
 exports.default = TableLayout;
 
-},{}]},{},[1,2,3]);
+},{}]},{},[1,2,3,4]);

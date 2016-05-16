@@ -15,6 +15,13 @@ export default class IndoorMap extends Container {
     return CardLayout
   }
 
+  set activeIndex(index) {
+    var config = Object.assign({}, this.layoutConfig)
+
+    config.activeIndex = index
+    this.set('layoutConfig', config)
+  }
+
   _draw(context) {
 
     super._draw(context)
