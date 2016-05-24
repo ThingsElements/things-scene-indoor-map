@@ -20,7 +20,6 @@ export default class IndoorMap extends Container {
 
     config.activeIndex = index
 
-    console.log('config', config)
     this.set('layoutConfig', config)
   }
 

@@ -264,7 +264,6 @@ var IndoorMap = function (_Container) {
 
       config.activeIndex = index;
 
-      console.log('config', config);
       this.set('layoutConfig', config);
     }
   }]);
@@ -296,6 +295,26 @@ var _scene = scene;
 var Component = _scene.Component;
 var Rect = _scene.Rect;
 
+
+var NATURE = {
+  props: [{
+    type: 'number',
+    label: 'shelves',
+    name: 'shelves',
+    property: 'shelves'
+  }, {
+    type: 'number',
+    label: 'depth',
+    name: 'depth',
+    property: 'depth'
+  }, {
+    type: 'string',
+    label: 'location',
+    name: 'location',
+    property: 'location'
+  }]
+};
+
 var Rack = function (_Rect) {
   _inherits(Rack, _Rect);
 
@@ -306,33 +325,13 @@ var Rack = function (_Rect) {
   }
 
   _createClass(Rack, [{
-    key: '_draw',
-    value: function _draw(context) {
-      var _model = this.model;
-      var left = _model.left;
-      var top = _model.top;
-      var sheaf = _model.sheaf;
-      var width = _model.width;
-      var height = _model.height;
-      var depth = _model.depth;
-      var _model$hidden = _model.hidden;
-      var hidden = _model$hidden === undefined ? false : _model$hidden;
-
-
-      context.beginPath();
-
-      context.rect(left, top, width, height);
-
-      context.closePath();
-
-      if (!hidden) {
-        this.drawFill(context);
-        this.drawStroke(context);
-      }
-    }
-  }, {
     key: 'controls',
     get: function get() {}
+  }], [{
+    key: 'nature',
+    get: function get() {
+      return NATURE;
+    }
   }]);
 
   return Rack;

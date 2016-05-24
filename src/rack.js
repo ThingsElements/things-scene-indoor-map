@@ -1,29 +1,28 @@
 var { Component, Rect } = scene
 
+const NATURE = {
+  props: [{
+    type: 'number',
+    label: 'shelves',
+    name: 'shelves',
+    property: 'shelves'
+  }, {
+    type: 'number',
+    label: 'depth',
+    name: 'depth',
+    property: 'depth'
+  }, {
+    type: 'string',
+    label: 'location',
+    name: 'location',
+    property: 'location'
+  }]
+}
+
 export default class Rack extends Rect {
 
-  _draw(context) {
-
-    var { 
-      left,
-      top,
-      sheaf,
-      width,
-      height,
-      depth,
-      hidden = false,
-    } = this.model
-
-    context.beginPath()
-
-    context.rect(left, top, width, height)
-
-    context.closePath()
-
-    if(!hidden){
-      this.drawFill(context)
-      this.drawStroke(context)
-    }
+  static get nature() {
+    return NATURE
   }
 
   get controls() {}
