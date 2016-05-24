@@ -30,6 +30,11 @@ var Floor = function (_Container) {
   _createClass(Floor, [{
     key: 'mutable',
 
+
+    // _draw(context) {
+    //   var { depth } = this.model
+    // }
+
     /*
      * PATH 리스트를 직접 수정할 수 있는 지를 결정한다.
      *
@@ -110,9 +115,18 @@ Object.defineProperty(exports, 'TableLayout', {
   }
 });
 
+var _rack = require('./rack');
+
+Object.defineProperty(exports, 'Rack', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_rack).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./floor":1,"./indoor-map":3,"./table-layout":4}],3:[function(require,module,exports){
+},{"./floor":1,"./indoor-map":3,"./rack":4,"./table-layout":5}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -249,6 +263,8 @@ var IndoorMap = function (_Container) {
       var config = Object.assign({}, this.layoutConfig);
 
       config.activeIndex = index;
+
+      console.log('config', config);
       this.set('layoutConfig', config);
     }
   }]);
@@ -262,6 +278,72 @@ exports.default = IndoorMap;
 Component.register('indoor-map', IndoorMap);
 
 },{"./floor":1}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _scene = scene;
+var Component = _scene.Component;
+var Rect = _scene.Rect;
+
+var Rack = function (_Rect) {
+  _inherits(Rack, _Rect);
+
+  function Rack() {
+    _classCallCheck(this, Rack);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Rack).apply(this, arguments));
+  }
+
+  _createClass(Rack, [{
+    key: '_draw',
+    value: function _draw(context) {
+      var _model = this.model;
+      var left = _model.left;
+      var top = _model.top;
+      var sheaf = _model.sheaf;
+      var width = _model.width;
+      var height = _model.height;
+      var depth = _model.depth;
+      var _model$hidden = _model.hidden;
+      var hidden = _model$hidden === undefined ? false : _model$hidden;
+
+
+      context.beginPath();
+
+      context.rect(left, top, width, height);
+
+      context.closePath();
+
+      if (!hidden) {
+        this.drawFill(context);
+        this.drawStroke(context);
+      }
+    }
+  }, {
+    key: 'controls',
+    get: function get() {}
+  }]);
+
+  return Rack;
+}(Rect);
+
+exports.default = Rack;
+
+
+Component.register('rack', Rack);
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -315,4 +397,4 @@ Layout.register('table', TableLayout);
 
 exports.default = TableLayout;
 
-},{}]},{},[1,2,3,4]);
+},{}]},{},[1,2,3,5]);

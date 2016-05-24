@@ -1,6 +1,11 @@
 var { Component, Container, CardLayout } = scene
 
 export default class Floor extends Container {
+
+  // _draw(context) {
+  //   var { depth } = this.model
+  // }
+
   /*
    * PATH 리스트를 직접 수정할 수 있는 지를 결정한다.
    *

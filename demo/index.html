@@ -32,6 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 100%;
       height: 560px;
     }
+
+
     </style>
   </head>
   <body unresolved>
@@ -55,10 +57,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                model="{{target}}"
                                bounds="{{bounds}}">
         <fieldset class="same-width">
-          <legend>Stack style</legend>
+          <legend>Indoor Map Properties</legend>
 
           <label>Active Floor</label>
-          <input type="number" value-as-number="{{target.layoutConfig.activeIndex::change}}" min="0" max="100" step="1" numberonly="true" />
+          <input type="number" value-as-number="{{target.activeIndex::change}}" min="0" max="100" step="1" numberonly="true" on-change="changeActive" />
+
+          <div>
+            <div>
+              <span id='add-floor' on-click="addFloor">+</span>
+            </div>
+
+            <template is="dom-repeat" items="[[floors]]">
+              <div>
+                <span>[[item.name]]</span>
+                <span>-</span>
+              </div>
+            </template>
+         </div>
 
         </fieldset>
       </things-scene-properties>
@@ -66,13 +81,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <script>
-
       window.addEventListener('WebComponentsReady', function(e) {
         var app = document.querySelector('#app')
 
         app.model = {
-          width: 500,
-          height: 500,
+          width:1000,
+          height: 1000,
           components: [{
             type: 'indoor-map',
             left: 100,
@@ -82,117 +96,124 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fontSize: 80,
             fontColor: '#000000',
             lineWidth: 10,
-            active: 0,
+            activeIndex: 0,
             components: [{
               type: 'floor',
+              name: 'floor A',
               fillStyle: 'orange',
               width: 100,
               height: 100,
+              depth: 100,
               components: [{
-                type: 'rect',
+                type: 'rack',
                 left: 100,
                 top: 220,
+                sheaf: 1,
                 width: 100,
                 height: 100,
+                depth: 100,
                 fillStyle: 'red',
                 lineWidth: 4
               }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'blue',
+                type: 'rack',
+                left: 300,
+                top: 320,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'navy',
                 lineWidth: 4
               }, {
-                type: 'polygon',
-                path: [{
-                  x: 100,
-                  y: 100
-                }, {
-                  x: 200,
-                  y: 150
-                }, {
-                  x: 150,
-                  y: 200
-                }],
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
                 fillStyle: 'blue',
                 lineWidth: 4
               }]
             }, {
               type: 'floor',
+              name: 'floor B',
               fillStyle: 'navy',
               width: 100,
               height: 100,
+              depth: 100,
               components: [{
-                type: 'rect',
+                type: 'rack',
                 left: 100,
                 top: 220,
+                sheaf: 1,
                 width: 100,
                 height: 100,
+                depth: 100,
                 fillStyle: 'red',
                 lineWidth: 4
               }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'blue',
+                type: 'rack',
+                left: 300,
+                top: 320,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'navy',
                 lineWidth: 4
               }, {
-                type: 'polygon',
-                path: [{
-                  x: 100,
-                  y: 100
-                }, {
-                  x: 200,
-                  y: 150
-                }, {
-                  x: 150,
-                  y: 200
-                }],
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
                 fillStyle: 'blue',
                 lineWidth: 4
               }]
             }, {
               type: 'floor',
+              name: 'floor C',
               fillStyle: 'black',
               width: 100,
               height: 100,
+              depth: 100,
               components: [{
-                type: 'rect',
+                type: 'rack',
                 left: 100,
                 top: 220,
+                sheaf: 1,
                 width: 100,
                 height: 100,
+                depth: 100,
                 fillStyle: 'red',
                 lineWidth: 4
               }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'blue',
+                type: 'rack',
+                left: 300,
+                top: 320,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'navy',
                 lineWidth: 4
               }, {
-                type: 'polygon',
-                path: [{
-                  x: 100,
-                  y: 100
-                }, {
-                  x: 200,
-                  y: 150
-                }, {
-                  x: 150,
-                  y: 200
-                }],
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
                 fillStyle: 'blue',
                 lineWidth: 4
               }]
             }, {
               type: 'floor',
+              name: 'floor D',
               fillStyle: 'green',
               layout: 'table',
               layoutConfig : {
@@ -200,65 +221,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               },
               width: 100,
               height: 100,
+              depth: 100,
               components: [{
-                type: 'rect',
+                type: 'rack',
                 left: 100,
                 top: 220,
+                sheaf: 1,
                 width: 100,
                 height: 100,
+                depth: 100,
                 fillStyle: 'red',
                 lineWidth: 4
               }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
+                type: 'rack',
+                left: 300,
+                top: 320,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'navy',
+                lineWidth: 4
+              }, {
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
                 fillStyle: 'blue',
-                lineWidth: 4
-              }, {
-                type: 'polygon',
-                path: [{
-                  x: 100,
-                  y: 100
-                }, {
-                  x: 200,
-                  y: 150
-                }, {
-                  x: 150,
-                  y: 200
-                }],
-                fillStyle: 'blue',
-                lineWidth: 4
-              }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'blue',
-                lineWidth: 4
-              }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'violet',
-                lineWidth: 4
-              }, {
-                type: 'ellipse',
-                cx: 400,
-                cy: 200,
-                rx: 100,
-                ry: 100,
-                fillStyle: 'black',
                 lineWidth: 4
               }]
             }]
           }]
         }
       });
+
+      app.changeActive = function(e) {
+        var indoorMap = app.scene.findAll('indoor-map')[0]
+        indoorMap.activeIndex = e.target.valueAsNumber
+      }
+
+      app.addFloor = function(e) {
+        var indoorMap = app.scene.findAll('indoor-map')[0]
+
+        app.scene.add({
+          type: 'floor',
+          fillStyle: 'gray',
+          top: 0,
+          left: 0,
+          width: 0,
+          height: 0
+        }, {}, indoorMap)
+      }
+
+      setInterval(function() {
+        app.floors = app.scene.findAll('floor')
+      }, 1000)
+
     </script>
   </body>
 </html>

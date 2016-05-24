@@ -19,6 +19,8 @@ export default class IndoorMap extends Container {
     var config = Object.assign({}, this.layoutConfig)
 
     config.activeIndex = index
+
+    console.log('config', config)
     this.set('layoutConfig', config)
   }
 

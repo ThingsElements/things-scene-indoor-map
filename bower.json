@@ -15,10 +15,15 @@
   "homepage": "https://github.com/ThingsElements/things-scene-indoor-map/",
   "ignore": [
     "/.*",
-    "/test/"
+    "/test/",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer": "Polymer/polymer#^1.4.0",
     "things-scene": "^0.5.3"
   },
   "devDependencies": {
