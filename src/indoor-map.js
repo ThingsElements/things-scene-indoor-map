@@ -9,7 +9,20 @@ function rgba(r, g, b, a) {
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
+const NATURE = {
+  props: [{
+    type: 'number',
+    label: 'Active Floor',
+    name: 'activeIndex',
+    property: 'activeIndex'
+  }]
+}
+
 export default class IndoorMap extends Container {
+
+  static get nature() {
+    return NATURE
+  }
 
   get layout() {
     return CardLayout

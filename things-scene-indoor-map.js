@@ -163,6 +163,15 @@ function rgba(r, g, b, a) {
   return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
 }
 
+var NATURE = {
+  props: [{
+    type: 'number',
+    label: 'Active Floor',
+    name: 'activeIndex',
+    property: 'activeIndex'
+  }]
+};
+
 var IndoorMap = function (_Container) {
   _inherits(IndoorMap, _Container);
 
@@ -265,6 +274,11 @@ var IndoorMap = function (_Container) {
       config.activeIndex = index;
 
       this.set('layoutConfig', config);
+    }
+  }], [{
+    key: 'nature',
+    get: function get() {
+      return NATURE;
     }
   }]);
 
