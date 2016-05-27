@@ -31,16 +31,15 @@ export default class Rack extends Rect {
       hidden = false,
     } = this.model;
 
-    // 박스 그리기
-    context.beginPath();
-
-    context.rect(left, top, width, height);
-    context.moveTo(left, top)
-    context.lineTo(left + width, top + height)
-    context.moveTo(left, top + height)
-    context.lineTo(left + width, top)
-
     if(!hidden){
+      context.beginPath()
+      context.rect(left, top, width, height)
+
+      context.moveTo(left, top)
+      context.lineTo(left + width, top + height)
+      context.moveTo(left, top + height)
+      context.lineTo(left + width, top)
+
       this.drawFill(context)
       this.drawStroke(context)
     }

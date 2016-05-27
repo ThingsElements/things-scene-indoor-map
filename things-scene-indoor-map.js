@@ -349,17 +349,16 @@ var Rack = function (_Rect) {
       var _model$hidden = _model.hidden;
       var hidden = _model$hidden === undefined ? false : _model$hidden;
 
-      // 박스 그리기
-
-      context.beginPath();
-
-      context.rect(left, top, width, height);
-      context.moveTo(left, top);
-      context.lineTo(left + width, top + height);
-      context.moveTo(left, top + height);
-      context.lineTo(left + width, top);
 
       if (!hidden) {
+        context.beginPath();
+        context.rect(left, top, width, height);
+
+        context.moveTo(left, top);
+        context.lineTo(left + width, top + height);
+        context.moveTo(left, top + height);
+        context.lineTo(left + width, top);
+
         this.drawFill(context);
         this.drawStroke(context);
       }
