@@ -339,6 +339,32 @@ var Rack = function (_Rect) {
   }
 
   _createClass(Rack, [{
+    key: '_draw',
+    value: function _draw(context) {
+      var _model = this.model;
+      var left = _model.left;
+      var top = _model.top;
+      var width = _model.width;
+      var height = _model.height;
+      var _model$hidden = _model.hidden;
+      var hidden = _model$hidden === undefined ? false : _model$hidden;
+
+      // 박스 그리기
+
+      context.beginPath();
+
+      context.rect(left, top, width, height);
+      context.moveTo(left, top);
+      context.lineTo(left + width, top + height);
+      context.moveTo(left, top + height);
+      context.lineTo(left + width, top);
+
+      if (!hidden) {
+        this.drawFill(context);
+        this.drawStroke(context);
+      }
+    }
+  }, {
     key: 'controls',
     get: function get() {}
   }], [{
