@@ -346,6 +346,9 @@ var Rack = function (_Rect) {
       var top = _model.top;
       var width = _model.width;
       var height = _model.height;
+      var strokeStyle = _model.strokeStyle;
+      var lineWidth = _model.lineWidth;
+      var fillStyle = _model.fillStyle;
       var _model$hidden = _model.hidden;
       var hidden = _model$hidden === undefined ? false : _model$hidden;
 
@@ -353,14 +356,28 @@ var Rack = function (_Rect) {
       if (!hidden) {
         context.beginPath();
         context.rect(left, top, width, height);
+        context.strokeStyle = strokeStyle;
+        context.lineWidth = lineWidth;
+        context.globalAlpha = 0.4;
+        context.stroke();
 
+        context.beginPath();
+        context.rect(left + width * 0.15, top + height * 0.15, width * 0.7, height * 0.7);
+        context.fillStyle = 'black';
+        context.globalAlpha = 0.5;
+        context.fill();
+
+        context.beginPath();
         context.moveTo(left, top);
         context.lineTo(left + width, top + height);
         context.moveTo(left, top + height);
         context.lineTo(left + width, top);
-
-        this.drawFill(context);
-        this.drawStroke(context);
+        context.strokeStyle = strokeStyle;
+        context.lineWidth = lineWidth;
+        context.globalAlpha = 0.4;
+        context.stroke();
+        // this.drawFill(context)
+        // this.drawStroke(context)
       }
     }
   }, {
