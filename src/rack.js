@@ -44,7 +44,7 @@ export default class Rack extends Rect {
 
       context.beginPath()
       context.rect(left + width * 0.15, top + height * 0.15, width * 0.7, height * 0.7)
-      context.fillStyle = 'black'
+      context.fillStyle = fillStyle
       context.globalAlpha = 0.5
       context.fill()
 
