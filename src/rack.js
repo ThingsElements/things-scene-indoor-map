@@ -32,6 +32,7 @@ export default class Rack extends Rect {
       lineWidth,
       fillStyle,
       hidden = false,
+      alpha = 1,
     } = this.model;
 
     if(!hidden){
@@ -39,13 +40,13 @@ export default class Rack extends Rect {
       context.rect(left, top, width, height)
       context.strokeStyle = strokeStyle
       context.lineWidth = lineWidth
-      context.globalAlpha = 0.4
+      context.globalAlpha = alpha * 0.4
       context.stroke()
 
       context.beginPath()
       context.rect(left + width * 0.15, top + height * 0.15, width * 0.7, height * 0.7)
       context.fillStyle = fillStyle
-      context.globalAlpha = 0.5
+      context.globalAlpha = alpha * 0.5
       context.fill()
 
       context.beginPath()
@@ -55,10 +56,8 @@ export default class Rack extends Rect {
       context.lineTo(left + width, top)
       context.strokeStyle = strokeStyle
       context.lineWidth = lineWidth
-      context.globalAlpha = 0.4
+      context.globalAlpha = alpha * 0.4
       context.stroke()
-      // this.drawFill(context)
-      // this.drawStroke(context)
     }
   }
 
