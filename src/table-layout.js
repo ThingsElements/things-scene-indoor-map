@@ -51,7 +51,6 @@ var TableLayout = {
     let rows = Math.ceil(container.components.length / columns);
 
     var padding = parsePadding(container.get("padding"));
-    console.log(padding)
 
     let componentWidth = (container.bounds.width - (padding.left + padding.right)) / columns;
     let componentHeight = (container.bounds.height - (padding.top + padding.bottom)) / rows;

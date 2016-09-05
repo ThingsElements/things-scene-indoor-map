@@ -225,48 +225,7 @@ var IndoorMap = function (_Container) {
     }
   }, {
     key: 'onchange',
-    value: function onchange(after) {
-      console.log(after);
-    }
-
-    // onmouseup(e) {
-    //   var down_point = this.__down_point
-    //   delete this.__down_point
-    //
-    //   if(!down_point
-    //     || down_point.x != e.offsetX
-    //     || down_point.y != e.offsetY) {
-    //     return
-    //   }
-    //
-    //   var point = this.transcoordC2S(e.offsetX, e.offsetY);
-    //
-    //   var { left, top, width} = this.model
-    //
-    //   var right = left + width;
-    //
-    //   var x = point.x - right
-    //   var y = point.y - top
-    //
-    //   if(x < 0)
-    //     return
-    //
-    //   y /= LABEL_HEIGHT
-    //   y = Math.floor(y)
-    //
-    //   if(!this.layoutConfig)
-    //     this.layoutConfig = {}
-    //
-    // }
-
-  }, {
-    key: 'onmousedown',
-    value: function onmousedown(e) {
-      this.__down_point = {
-        x: e.offsetX,
-        y: e.offsetY
-      };
-    }
+    value: function onchange(after) {}
   }, {
     key: 'layout',
     get: function get() {
@@ -459,7 +418,6 @@ var TableLayout = {
     var rows = Math.ceil(container.components.length / columns);
 
     var padding = parsePadding(container.get("padding"));
-    console.log(padding);
 
     var componentWidth = (container.bounds.width - (padding.left + padding.right)) / columns;
     var componentHeight = (container.bounds.height - (padding.top + padding.bottom)) / rows;
