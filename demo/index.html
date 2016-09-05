@@ -59,6 +59,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <fieldset class="same-width">
           <legend>Indoor Map Properties</legend>
 
+          <div>
+            <label>left</label>
+            <input type="number" value-as-number="{{target.left::change}}"/>
+            <label>top</label>
+            <input type="number" value-as-number="{{target.top::change}}"/>
+            <label>width</label>
+            <input type="number" value-as-number="{{target.width::change}}"/>
+            <label>height</label>
+            <input type="number" value-as-number="{{target.height::change}}"/>
+          </div>
+
           <label>Active Floor</label>
           <input type="number" value-as-number="{{target.activeIndex::change}}" min="0" max="100" step="1" numberonly="true" on-change="changeActive" />
 
@@ -99,7 +110,74 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             activeIndex: 0,
             components: [{
               type: 'floor',
-              name: 'floor A',
+              name : 'floor A',
+              fillStyle: 'green',
+              layout: 'table',
+              layoutConfig : {
+                columns: 4
+              },
+              padding : '30 50',
+              width: 100,
+              height: 100,
+              depth: 100,
+              components: [{
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'red',
+                lineWidth: 4
+              }, {
+                type: 'rack',
+                left: 300,
+                top: 320,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'navy',
+                lineWidth: 4
+              }, {
+                type: 'rack',
+                left: 100,
+                top: 220,
+                sheaf: 1,
+                width: 100,
+                height: 100,
+                depth: 100,
+                fillStyle: 'blue',
+                lineWidth: 4
+              }, {
+                type: 'ellipse',
+                cx: 400,
+                cy: 200,
+                rx: 100,
+                ry: 100,
+                fillStyle: 'blue',
+                lineWidth: 4
+              }, {
+                type: 'ellipse',
+                cx: 400,
+                cy: 200,
+                rx: 100,
+                ry: 100,
+                fillStyle: 'violet',
+                lineWidth: 4
+              }, {
+                type: 'ellipse',
+                cx: 400,
+                cy: 200,
+                rx: 100,
+                ry: 100,
+                fillStyle: 'black',
+                lineWidth: 4
+              }]
+            }, {
+              type: 'floor',
+              name: 'floor B',
               fillStyle: 'orange',
               width: 100,
               height: 100,
@@ -137,46 +215,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               }]
             }, {
               type: 'floor',
-              name: 'floor B',
-              fillStyle: 'navy',
-              width: 100,
-              height: 100,
-              depth: 100,
-              components: [{
-                type: 'rack',
-                left: 100,
-                top: 220,
-                sheaf: 1,
-                width: 100,
-                height: 100,
-                depth: 100,
-                fillStyle: 'red',
-                lineWidth: 4
-              }, {
-                type: 'rack',
-                left: 300,
-                top: 320,
-                sheaf: 1,
-                width: 100,
-                height: 100,
-                depth: 100,
-                fillStyle: 'navy',
-                lineWidth: 4
-              }, {
-                type: 'rack',
-                left: 100,
-                top: 220,
-                sheaf: 1,
-                width: 100,
-                height: 100,
-                depth: 100,
-                fillStyle: 'blue',
-                lineWidth: 4
-              }]
-            }, {
-              type: 'floor',
               name: 'floor C',
-              fillStyle: 'black',
+              fillStyle: 'navy',
               width: 100,
               height: 100,
               depth: 100,

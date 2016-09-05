@@ -1,14 +1,60 @@
 var { Layout } = scene
 
+function parsePadding(padding){
+
+  if(!padding)
+    padding = {
+      top : 0,
+      right : 0,
+      bottom : 0,
+      left : 0
+    }
+
+  if( typeof padding === 'number' )
+    padding = String(padding)
+
+  if( typeof padding === 'string' ) {
+    var padArr = padding.split(' ');
+
+    if( padArr.length === 1 ) {
+      padding = {
+        top : Number(padArr[0]),
+        right : Number(padArr[0]),
+        bottom : Number(padArr[0]),
+        left : Number(padArr[0])
+      }
+    } else if ( padArr.length === 2 ) {
+      padding = {
+        top : Number(padArr[0]),
+        right : Number(padArr[1]),
+        bottom : Number(padArr[0]),
+        left : Number(padArr[1])
+      }
+    } else if ( padArr.length === 4 ) {
+      padding = {
+        top : Number(padArr[0]),
+        right : Number(padArr[1]),
+        bottom : Number(padArr[2]),
+        left : Number(padArr[3])
+      }
+    }
+  }
+
+  return padding;
+}
+
 var TableLayout = {
+
   reflow: function(container) {
     let layoutConfig = container.get('layoutConfig')
     let columns = (layoutConfig && layoutConfig.columns) || 3
-
     let rows = Math.ceil(container.components.length / columns);
 
-    let componentWidth = container.bounds.width / columns;
-    let componentHeight = container.bounds.height / rows;
+    var padding = parsePadding(container.get("padding"));
+    console.log(padding)
+
+    let componentWidth = (container.bounds.width - (padding.left + padding.right)) / columns;
+    let componentHeight = (container.bounds.height - (padding.top + padding.bottom)) / rows;
 
     var colNum = 0;
     var rowNum = 0;
@@ -17,10 +63,10 @@ var TableLayout = {
       colNum = idx % columns
       rowNum = Math.floor(idx / columns)
       component.bounds = {
-        left : colNum * componentWidth,
-        top : rowNum * componentHeight,
+        left : padding.left + colNum * componentWidth,
+        top : padding.top + rowNum * componentHeight,
         width : componentWidth,
-        height : componentHeight,
+        height : componentHeight
       }
 
       component.set('rotation', 0)

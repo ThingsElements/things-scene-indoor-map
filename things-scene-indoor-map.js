@@ -182,10 +182,10 @@ var IndoorMap = function (_Container) {
   }
 
   _createClass(IndoorMap, [{
-    key: '_draw',
-    value: function _draw(context) {
+    key: '_post_draw',
+    value: function _post_draw(context) {
 
-      _get(Object.getPrototypeOf(IndoorMap.prototype), '_draw', this).call(this, context);
+      _get(Object.getPrototypeOf(IndoorMap.prototype), '_post_draw', this).call(this, context);
 
       var _model = this.model;
       var left = _model.left;
@@ -219,40 +219,46 @@ var IndoorMap = function (_Container) {
 
       var right = left + width;
 
-      var h = LABEL_HEIGHT * (this.components.length + 1);
+      var h = LABEL_HEIGHT;
 
       return x < Math.max(right + LABEL_WIDTH, right) && x > Math.min(right + LABEL_WIDTH, right) && y < Math.max(top + h, top) && y > Math.min(top + h, top);
     }
   }, {
-    key: 'onmouseup',
-    value: function onmouseup(e) {
-      var down_point = this.__down_point;
-      delete this.__down_point;
-
-      if (!down_point || down_point.x != e.offsetX || down_point.y != e.offsetY) {
-        return;
-      }
-
-      var point = this.transcoordC2S(e.offsetX, e.offsetY);
-
-      var _model2 = this.model;
-      var left = _model2.left;
-      var top = _model2.top;
-      var width = _model2.width;
-
-
-      var right = left + width;
-
-      var x = point.x - right;
-      var y = point.y - top;
-
-      if (x < 0) return;
-
-      y /= LABEL_HEIGHT;
-      y = Math.floor(y);
-
-      if (!this.layoutConfig) this.layoutConfig = {};
+    key: 'onchange',
+    value: function onchange(after) {
+      console.log(after);
     }
+
+    // onmouseup(e) {
+    //   var down_point = this.__down_point
+    //   delete this.__down_point
+    //
+    //   if(!down_point
+    //     || down_point.x != e.offsetX
+    //     || down_point.y != e.offsetY) {
+    //     return
+    //   }
+    //
+    //   var point = this.transcoordC2S(e.offsetX, e.offsetY);
+    //
+    //   var { left, top, width} = this.model
+    //
+    //   var right = left + width;
+    //
+    //   var x = point.x - right
+    //   var y = point.y - top
+    //
+    //   if(x < 0)
+    //     return
+    //
+    //   y /= LABEL_HEIGHT
+    //   y = Math.floor(y)
+    //
+    //   if(!this.layoutConfig)
+    //     this.layoutConfig = {}
+    //
+    // }
+
   }, {
     key: 'onmousedown',
     value: function onmousedown(e) {
@@ -404,15 +410,59 @@ var _scene = scene;
 var Layout = _scene.Layout;
 
 
+function parsePadding(padding) {
+
+  if (!padding) padding = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  };
+
+  if (typeof padding === 'number') padding = String(padding);
+
+  if (typeof padding === 'string') {
+    var padArr = padding.split(' ');
+
+    if (padArr.length === 1) {
+      padding = {
+        top: Number(padArr[0]),
+        right: Number(padArr[0]),
+        bottom: Number(padArr[0]),
+        left: Number(padArr[0])
+      };
+    } else if (padArr.length === 2) {
+      padding = {
+        top: Number(padArr[0]),
+        right: Number(padArr[1]),
+        bottom: Number(padArr[0]),
+        left: Number(padArr[1])
+      };
+    } else if (padArr.length === 4) {
+      padding = {
+        top: Number(padArr[0]),
+        right: Number(padArr[1]),
+        bottom: Number(padArr[2]),
+        left: Number(padArr[3])
+      };
+    }
+  }
+
+  return padding;
+}
+
 var TableLayout = {
+
   reflow: function reflow(container) {
     var layoutConfig = container.get('layoutConfig');
     var columns = layoutConfig && layoutConfig.columns || 3;
-
     var rows = Math.ceil(container.components.length / columns);
 
-    var componentWidth = container.bounds.width / columns;
-    var componentHeight = container.bounds.height / rows;
+    var padding = parsePadding(container.get("padding"));
+    console.log(padding);
+
+    var componentWidth = (container.bounds.width - (padding.left + padding.right)) / columns;
+    var componentHeight = (container.bounds.height - (padding.top + padding.bottom)) / rows;
 
     var colNum = 0;
     var rowNum = 0;
@@ -421,8 +471,8 @@ var TableLayout = {
       colNum = idx % columns;
       rowNum = Math.floor(idx / columns);
       component.bounds = {
-        left: colNum * componentWidth,
-        top: rowNum * componentHeight,
+        left: padding.left + colNum * componentWidth,
+        top: padding.top + rowNum * componentHeight,
         width: componentWidth,
         height: componentHeight
       };

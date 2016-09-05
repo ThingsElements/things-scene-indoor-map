@@ -36,9 +36,9 @@ export default class IndoorMap extends Container {
     this.set('layoutConfig', config)
   }
 
-  _draw(context) {
+  _post_draw(context) {
 
-    super._draw(context)
+    super._post_draw(context)
 
     var { left, top, width, fillStyle } = this.model
 
@@ -65,41 +65,45 @@ export default class IndoorMap extends Container {
 
     var right = left + width;
 
-    var h = LABEL_HEIGHT * (this.components.length + 1)
+    var h = LABEL_HEIGHT
 
     return (x < Math.max(right + LABEL_WIDTH, right ) && x > Math.min(right + LABEL_WIDTH, right)
       && y < Math.max(top + h, top) && y > Math.min(top + h, top));
   }
 
-  onmouseup(e) {
-    var down_point = this.__down_point
-    delete this.__down_point
-
-    if(!down_point
-      || down_point.x != e.offsetX
-      || down_point.y != e.offsetY) {
-      return
-    }
-
-    var point = this.transcoordC2S(e.offsetX, e.offsetY);
-
-    var { left, top, width} = this.model
-
-    var right = left + width;
-
-    var x = point.x - right
-    var y = point.y - top
-
-    if(x < 0)
-      return
-
-    y /= LABEL_HEIGHT
-    y = Math.floor(y)
-
-    if(!this.layoutConfig)
-      this.layoutConfig = {}
-
+  onchange(after) {
+    console.log(after)
   }
+
+  // onmouseup(e) {
+  //   var down_point = this.__down_point
+  //   delete this.__down_point
+  //
+  //   if(!down_point
+  //     || down_point.x != e.offsetX
+  //     || down_point.y != e.offsetY) {
+  //     return
+  //   }
+  //
+  //   var point = this.transcoordC2S(e.offsetX, e.offsetY);
+  //
+  //   var { left, top, width} = this.model
+  //
+  //   var right = left + width;
+  //
+  //   var x = point.x - right
+  //   var y = point.y - top
+  //
+  //   if(x < 0)
+  //     return
+  //
+  //   y /= LABEL_HEIGHT
+  //   y = Math.floor(y)
+  //
+  //   if(!this.layoutConfig)
+  //     this.layoutConfig = {}
+  //
+  // }
 
   onmousedown(e) {
     this.__down_point = {
