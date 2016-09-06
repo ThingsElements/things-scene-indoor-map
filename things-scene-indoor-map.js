@@ -28,12 +28,14 @@ var Floor = function (_Container) {
   }
 
   _createClass(Floor, [{
-    key: 'mutable',
+    key: 'drawText',
 
 
     // _draw(context) {
     //   var { depth } = this.model
     // }
+
+    value: function drawText() {}
 
     /*
      * PATH 리스트를 직접 수정할 수 있는 지를 결정한다.
@@ -43,6 +45,9 @@ var Floor = function (_Container) {
      *
      * Immutable 컴포넌트의 형상을 바꾸는 방법은 바운드를 이용한 리사이즈나, 특별한 컨트롤을 통해서 가능하다.
      */
+
+  }, {
+    key: 'mutable',
     get: function get() {
       return false;
     }
@@ -456,4 +461,4 @@ Layout.register('table', TableLayout);
 
 exports.default = TableLayout;
 
-},{}]},{},[2]);
+},{}]},{},[1,2,3,4,5]);

@@ -6,6 +6,8 @@ export default class Floor extends Container {
   //   var { depth } = this.model
   // }
 
+  drawText() {}
+
   /*
    * PATH 리스트를 직접 수정할 수 있는 지를 결정한다.
    *
