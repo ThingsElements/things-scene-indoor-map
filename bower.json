@@ -1,6 +1,6 @@
 {
   "name": "things-scene-indoor-map",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "things-scene": "^0.6.0"
+    "things-scene": "^0.7.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
