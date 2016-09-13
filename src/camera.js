@@ -6,10 +6,10 @@ const NATURE = {
 
 const points = [
   {x: 0, y: 0, z: 0},
-  {x: 1, y: 0.5, z: 0.5},
-  {x: 1, y: 0.5, z: -0.5},
-  {x: 1, y: -0.5, z: -0.5},
-  {x: 1, y: -0.5, z: 0.5}
+  {x: 1, y: 0.8, z: 0.5},
+  {x: 1, y: 0.8, z: -0.5},
+  {x: 1, y: -0.8, z: -0.5},
+  {x: 1, y: -0.8, z: 0.5}
 ];
 
 function rotate(points, pitch, roll, yaw) {
