@@ -36,6 +36,10 @@ export default class IndoorMap extends Container {
     this.set('layoutConfig', config)
   }
 
+  get activeFloor() {
+    return this.components[this.get('layoutConfig').activeIndex]
+  }
+
   _post_draw(context) {
 
     super._post_draw(context)
@@ -69,6 +73,24 @@ export default class IndoorMap extends Container {
 
     return (x < Math.max(right + LABEL_WIDTH, right ) && x > Math.min(right + LABEL_WIDTH, right)
       && y < Math.max(top + h, top) && y > Math.min(top + h, top));
+  }
+
+  addFloor() {
+    let floor = Model.compile({
+      type: 'floor',
+      fillStyle: 'gray',
+      top: 0,
+      left: 0,
+      width: 100,
+      height: 100
+    });
+
+    this.addComponent(floor)
+  }
+
+  drawLocationMarkers(locations) {
+    let floor = this.activeFloor
+    floor.drawLocationMarkers(locations);
   }
 
   onchange(after) {

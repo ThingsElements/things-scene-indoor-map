@@ -1,4 +1,4 @@
-var { Component, Container, CardLayout } = scene
+var { Component, Container, CardLayout, Model } = scene
 
 export default class Floor extends Container {
 
@@ -37,6 +37,60 @@ export default class Floor extends Container {
    */
   get rotatable() {
     return false
+  }
+
+  drawLocationMarkers(locations) {
+
+    for(let uuid in locations) {
+      let locInfo = locations[uuid]
+      let props = locInfo.props || {}
+
+      let currentTime = (new Date()).getTime()
+      // let diffTime = 500
+      let diffTime = currentTime - locInfo.lastUpdateTime
+
+      if( diffTime < locInfo.updateInterval ) {
+        let movingObject = this.findById(uuid)
+        if(movingObject) {
+          // props.yaw = 0;
+          // props.roll = 0;
+
+          movingObject.set(props)
+          for(let key in props){
+            movingObject[key] = props[key]
+          }
+        } else {
+
+          // TODO: marker의 초기값 관련 로직 정리 필요.
+
+          let config = Object.assign({
+            type: locInfo.type || "camera",
+            id : uuid,
+            fillStyle: 'red',
+            left : props.center.x - props.width * 0.5 ,
+            top: props.center.y - props.height * 0.5,
+            cx: props.center.x,
+            cy: props.center.y
+          }, props)
+
+          let marker = Model.compile(config);
+
+          this.addComponent(marker);
+
+          // movingObject = this.findById(uuid)
+          // if(movingObject) {
+          //   movingObject.set(props);
+          // }
+        }
+      } else {
+        let movingObject = this.findById(uuid)
+        this.removeComponent(movingObject)
+      }
+
+      this.invalidate()
+
+    }
+
   }
 }
 
