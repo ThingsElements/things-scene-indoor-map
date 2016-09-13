@@ -64,26 +64,28 @@ export default class Camera extends Rect {
     var center = this.center;
     var transformed = this.transformed;
 
-    // 다각형을 그린다.
     context.beginPath();
 
     context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
     context.lineTo(center.x + transformed[1].x, center.y + transformed[1].z);
+    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
+    context.lineTo(center.x + transformed[2].x, center.y + transformed[2].z);
+    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
+    context.lineTo(center.x + transformed[3].x, center.y + transformed[3].z);
+    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
+    context.lineTo(center.x + transformed[4].x, center.y + transformed[4].z);
+
+    context.stroke();
+
+    context.beginPath();
+
+    context.moveTo(center.x + transformed[1].x, center.y + transformed[1].z);
     context.lineTo(center.x + transformed[2].x, center.y + transformed[2].z);
     context.lineTo(center.x + transformed[3].x, center.y + transformed[3].z);
     context.lineTo(center.x + transformed[4].x, center.y + transformed[4].z);
     context.lineTo(center.x + transformed[1].x, center.y + transformed[1].z);
 
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
-    context.lineTo(center.x + transformed[2].x, center.y + transformed[2].z);
-
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
-    context.lineTo(center.x + transformed[3].x, center.y + transformed[3].z);
-
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].z);
-    context.lineTo(center.x + transformed[4].x, center.y + transformed[4].z);
-
-    context.closePath();
+    context.fill();
   }
 
   get transformed() {
