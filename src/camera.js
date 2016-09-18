@@ -8,45 +8,35 @@ const NATURE = {
 
 const points = [
   {x: 0, y: 0, z: 0},
-  {x: 50, y: -100, z: 100},
-  {x: -50, y: -100, z: 100},
+  {x: -50, y: +100, z: -100},
+  {x: +50, y: +100, z: -100},
+  {x: +50, y: -100, z: -100},
   {x: -50, y: -100, z: -100},
-  {x: 50, y: -100, z: -100},
-  {x: 0, y: -100, z: 0}, // center of lenz
-  {x: 0, y: -100, z: 50} // 위쪽 표시.
+  {x: 0, y: 0, z: -100}, // 렌즈의 중심을 표현하는 좌표.
+  {x: 0, y: +50, z: -100} // 카메라의 위쪽을 표시하기위한 좌표.
 ];
 
-/* 축이 옮겨진 상태로 회전하게되어, 오차가 크다. */
+/* rotate_by_euler와 같이 동작하도록 순서를 맞춤. */
 function rotate_by_quaternion_axis(points, pitch, roll, yaw) {
-  var qx = Quaternion.fromAxis({x: 1, y: 0, z: 0}, -pitch + Math.PI / 2);
+  var qx = Quaternion.fromAxis({x: 1, y: 0, z: 0}, pitch);
   var qy = Quaternion.fromAxis({x: 0, y: 1, z: 0}, roll);
-  var qz = Quaternion.fromAxis({x: 0, y: 0, z: 1}, -yaw);
+  var qz = Quaternion.fromAxis({x: 0, y: 0, z: 1}, yaw);
 
-  var q = qx.multiply(qy).multiply(qz);
-
-  return points.map(point => { return q.multiVec(point) });
-}
-
-/* 각이 2배로 움직인다. 오차가 크다. */
-function rotate_by_quaternion_euler(points, pitch, roll, yaw) {
-  var q = Quaternion.fromEuler({
-    x: (-pitch + Math.PI / 2) / 2,
-    y: -roll / 2,
-    z: yaw / 2
-  });
+  var q = qz.multiply(qy).multiply(qx);
 
   return points.map(point => { return q.multiVec(point) });
 }
 
 function rotate_by_euler(points, pitch, roll, yaw) {
-  var cosa = Math.cos(-yaw);
-  var sina = Math.sin(-yaw);
+
+  var cosa = Math.cos(yaw);
+  var sina = Math.sin(yaw);
 
   var cosb = Math.cos(roll);
   var sinb = Math.sin(roll);
 
-  var cosc = Math.cos(-pitch + Math.PI / 2);
-  var sinc = Math.sin(-pitch + Math.PI / 2);
+  var cosc = Math.cos(pitch);
+  var sinc = Math.sin(pitch);
 
   var Axx = cosa * cosb;
   var Axy = cosa * sinb * sinc - sina * cosc;
@@ -94,7 +84,7 @@ export default class Camera extends Rect {
       roll = 0
     } = this.model;
 
-    return rotate_by_euler(
+    return rotate_by_quaternion_axis(
       points,
       pitch - (this._anim_alpha_pitch || 0),
       roll - (this._anim_alpha_roll || 0),
@@ -111,14 +101,15 @@ export default class Camera extends Rect {
 
     context.beginPath();
 
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].y);
-    context.lineTo(center.x + transformed[1].x, center.y + transformed[1].y);
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].y);
-    context.lineTo(center.x + transformed[2].x, center.y + transformed[2].y);
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].y);
-    context.lineTo(center.x + transformed[3].x, center.y + transformed[3].y);
-    context.moveTo(center.x + transformed[0].x, center.y + transformed[0].y);
-    context.lineTo(center.x + transformed[4].x, center.y + transformed[4].y);
+    // 2D좌표에서 Y축이 반대방향이므로 center에서 빼준다.
+    context.moveTo(center.x + transformed[0].x, center.y - transformed[0].y);
+    context.lineTo(center.x + transformed[1].x, center.y - transformed[1].y);
+    context.moveTo(center.x + transformed[0].x, center.y - transformed[0].y);
+    context.lineTo(center.x + transformed[2].x, center.y - transformed[2].y);
+    context.moveTo(center.x + transformed[0].x, center.y - transformed[0].y);
+    context.lineTo(center.x + transformed[3].x, center.y - transformed[3].y);
+    context.moveTo(center.x + transformed[0].x, center.y - transformed[0].y);
+    context.lineTo(center.x + transformed[4].x, center.y - transformed[4].y);
 
     context.strokeStyle = this.model.strokeStyle;
     context.stroke();
@@ -130,11 +121,12 @@ export default class Camera extends Rect {
 
     context.beginPath();
 
-    context.moveTo(center.x + transformed[1].x, center.y + transformed[1].y);
-    context.lineTo(center.x + transformed[2].x, center.y + transformed[2].y);
-    context.lineTo(center.x + transformed[3].x, center.y + transformed[3].y);
-    context.lineTo(center.x + transformed[4].x, center.y + transformed[4].y);
-    context.lineTo(center.x + transformed[1].x, center.y + transformed[1].y);
+    // 2D좌표에서 Y축이 반대방향이므로 center에서 빼준다.
+    context.moveTo(center.x + transformed[1].x, center.y - transformed[1].y);
+    context.lineTo(center.x + transformed[2].x, center.y - transformed[2].y);
+    context.lineTo(center.x + transformed[3].x, center.y - transformed[3].y);
+    context.lineTo(center.x + transformed[4].x, center.y - transformed[4].y);
+    context.lineTo(center.x + transformed[1].x, center.y - transformed[1].y);
 
     context.fillStyle = this.model.fillStyle;
     context.strokeStyle = this.model.strokeStyle;
@@ -142,7 +134,7 @@ export default class Camera extends Rect {
     context.stroke();
 
     context.beginPath();
-    context.ellipse(center.x + transformed[6].x, center.y + transformed[6].y, 5, 5, 0, 0, Math.PI * 2);
+    context.ellipse(center.x + transformed[6].x, center.y - transformed[6].y, 5, 5, 0, 0, Math.PI * 2);
     context.stroke();
   }
 
@@ -159,28 +151,28 @@ export default class Camera extends Rect {
       return;
 
     var self = this;
-    var diff_yaw = -after.yaw + before.yaw;
-    var diff_pitch = -after.pitch + before.pitch;
-    var diff_roll = -after.roll + before.roll;
+    var diff_yaw = after.yaw - before.yaw;
+    var diff_pitch = after.pitch - before.pitch;
+    var diff_roll = after.roll - before.roll;
 
-    this._anim_alpha_yaw = -diff_yaw;
-    this._anim_alpha_pitch = -diff_pitch;
-    this._anim_alpha_roll = -diff_roll;
+    this._anim_alpha_yaw = diff_yaw;
+    this._anim_alpha_pitch = diff_pitch;
+    this._anim_alpha_roll = diff_roll;
 
     this.animate({
       step: function(delta) {
-        self._anim_alpha_yaw = diff_yaw * (delta - 1)
-        self._anim_alpha_pitch = diff_pitch * (delta - 1)
-        self._anim_alpha_roll = diff_roll * (delta - 1)
+        self._anim_alpha_yaw = diff_yaw * (1 - delta);
+        self._anim_alpha_pitch = diff_pitch * (1 - delta);
+        self._anim_alpha_roll = diff_roll * (1 - delta);
 
-        self.invalidate()
+        self.invalidate();
       },
       duration: 1000,
       delta: 'circ',
       options: {
         x: 1
       },
-      ease: 'out'
+      ease: 'inout'
     }).start();
   }
 
