@@ -65,7 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <things-editor-stack activeIndex="{{target.activeIndex::change}}"
                                stack="{{target.stack}}">
 
-          </things-editor-stack>  
+          </things-editor-stack>
 
           <div>
             <div>
@@ -101,7 +101,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fontSize: 80,
             fontColor: '#000000',
             lineWidth: 10,
-            activeIndex: 0,
+            // layoutConfig : {
+            //   activeIndex: 0
+            // },
             components: [{
               type: 'floor',
               name: 'floor A',

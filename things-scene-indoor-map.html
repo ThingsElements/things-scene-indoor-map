@@ -1,63 +1,17 @@
 <!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
+실내맵을 표현하는 컴포넌트이다.
 
-<link rel="import" href="../polymer/polymer.html">
-
-<link rel="import" href="../paper-button/paper-button.html">
-
-<link rel="import" href="../things-scene-viewer/things-scene-viewer.html">
-<link rel="import" href="../things-scene-viewer/things-scene-layer.html">
-<link rel="import" href="../things-scene-viewer/things-scene-handler.html">
-
-<!--
-An element providing a solution to no problem in particular.
+특징으로는,
+여러층(Floor 컴포넌트)을 가질 수 있으며,
+무빙 오브젝트들을 각 플로어에 위치시킬 수 있다.
 
 Example:
 
-  <things-scene-indoor-map model="[[model]]">
-  </things-scene-indoor-map>
+    <things-scene-viewer model="[[model]]">
+    </things-scene-viewer>
 
-@demo demo/index.html
+@demo demo/index-indoor-map.html
 @hero hero.svg
 -->
 
-<dom-module id="things-scene-indoor-map">
-  <template>
-    <style>
-      :host {
-        display: block;
-        @apply(--things-scene-indoor-map)
-      }
-
-    </style>
-
-    <content></content>
-
-  </template>
-
-  <script src="./things-scene-indoor-map-min.js"></script>
-
-  <script>
-
-    Polymer({
-      is: 'things-scene-indoor-map',
-
-      properties: {
-      },
-
-      observers: [
-      ],
-
-      listeners: {
-      }
-
-    });
-  </script>
-</dom-module>
+<script src="./things-scene-indoor-map-min.js"></script>
