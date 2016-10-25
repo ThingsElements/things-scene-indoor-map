@@ -10,17 +10,25 @@ function rgba(r, g, b, a) {
 }
 
 const NATURE = {
-  props: [{
-    type: 'number',
-    label: 'Active Floor',
-    name: 'activeIndex',
-    property: 'activeIndex'
+  mutable: false,
+  resizable: true,
+  rotatable: true,
+  properties : [{
+    type: 'action',
+    label: 'floor',
+    name: 'floor',
+    property: {
+      icon: 'add-circle',
+      action: function(indoorMap) {
+        indoorMap.addFloor()
+      }
+    }
   }]
 }
 
 export default class IndoorMap extends Container {
 
-  static get nature() {
+  get nature() {
     return NATURE
   }
 

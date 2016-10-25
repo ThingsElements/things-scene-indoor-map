@@ -1,5 +1,27 @@
 var { Component, Container, CardLayout, Model } = scene
 
+const NATURE = {
+  mutable: false,
+  resizable: true,
+  rotatable: true,
+  properties : [{
+    type: 'action',
+    label: 'remove',
+    name: 'remove',
+    property: {
+      icon: 'remove-circle',
+      action: function(floor) {
+        let indoor = floor.parent;
+        indoor.removeComponent(floor);
+
+        indoor.activeIndex = 0
+
+        indoor.invalidate()
+      }
+    }
+  }]
+}
+
 export default class Floor extends Container {
 
   // _draw(context) {
@@ -42,6 +64,10 @@ export default class Floor extends Container {
    */
   get rotatable() {
     return false
+  }
+
+  get nature() {
+    return NATURE
   }
 
   drawLocationMarkers(locations) {
