@@ -1,16 +1,19 @@
 var { Component, Rect } = scene
 
 const NATURE = {
-  props: [{
-    type: 'number',
-    label: 'shelves',
-    name: 'shelves',
-    property: 'shelves'
-  }, {
+  mutable: false,
+  resizable: true,
+  rotatable: true,
+  properties : [{
     type: 'number',
     label: 'depth',
     name: 'depth',
     property: 'depth'
+  }, {
+    type: 'number',
+    label: 'shelves',
+    name: 'shelves',
+    property: 'shelves'
   }, {
     type: 'string',
     label: 'location',
@@ -21,7 +24,7 @@ const NATURE = {
 
 export default class Rack extends Rect {
 
-    _draw(context) {
+  _draw(context) {
 
     var {
       left,
@@ -58,7 +61,7 @@ export default class Rack extends Rect {
     context.stroke()
   }
 
-  static get nature() {
+  get nature() {
     return NATURE
   }
 
