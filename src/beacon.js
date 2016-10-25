@@ -1,18 +1,42 @@
 var { Component, Rect } = scene
 
 const NATURE = {
-  props: [{
+  mutable: false,
+  resizable: true,
+  rotatable: true,
+  properties : [{
     type: 'number',
-    label: 'zPos',
+    label: 'z-pos',
     name: 'zPos',
     property: 'zPos'
+  }, {
+    type: 'string',
+    label: 'mac-address',
+    name: 'macAddr',
+    property: 'macAddress'
+  }, {
+    type: 'string',
+    label: 'identifier',
+    name: 'identifier',
+    property: 'identifier'
   }, {
     type: 'string',
     label: 'uuid',
     name: 'uuid',
     property: 'uuid'
+  }, {
+    type: 'number',
+    label: 'major',
+    name: 'major',
+    property: 'major'
+  }, {
+    type: 'number',
+    label: 'minor',
+    name: 'minor',
+    property: 'minor'
   }]
 }
+
 
 export default class Beacon extends Rect {
 
@@ -26,7 +50,7 @@ export default class Beacon extends Rect {
     this.drawFill(context)
   }
 
-  static get nature() {
+  get nature() {
     return NATURE
   }
 

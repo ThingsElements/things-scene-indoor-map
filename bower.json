@@ -1,6 +1,6 @@
 {
   "name": "things-scene-indoor-map",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
@@ -23,7 +23,8 @@
     "tests"
   ],
   "dependencies": {
-    "things-scene": "^0.7.0"
+    "things-scene": "^0.7.0",
+    "gaussian": "errcw/gaussian"
   },
   "devDependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
