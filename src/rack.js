@@ -1,4 +1,4 @@
-var { Component, Rect } = scene
+var { Component, RectPath } = scene
 
 const NATURE = {
   mutable: false,
@@ -22,7 +22,7 @@ const NATURE = {
   }]
 }
 
-export default class Rack extends Rect {
+export default class Rack extends RectPath(Component) {
 
   _draw(context) {
 
@@ -65,7 +65,6 @@ export default class Rack extends Rect {
     return NATURE
   }
 
-  get controls() {}
 }
 
 Component.register('rack', Rack)

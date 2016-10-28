@@ -24,15 +24,6 @@ const NATURE = {
 
 export default class Floor extends Container {
 
-  // _draw(context) {
-  //   var { depth } = this.model
-  // }
-
-  _post_draw(context) {
-    super._post_draw(context);
-
-  }
-
   drawText() {}
 
   /*

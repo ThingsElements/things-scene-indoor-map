@@ -1,4 +1,4 @@
-var { Component, Rect } = scene
+var { Component, RectPath } = scene
 
 const NATURE = {
   mutable: false,
@@ -38,9 +38,9 @@ const NATURE = {
 }
 
 
-export default class Beacon extends Rect {
+export default class Beacon extends RectPath(Component) {
 
-  _post_draw(context) {
+  _draw(context) {
     this.model.fillStyle = {
       type: 'pattern',
       fitPattern: true,

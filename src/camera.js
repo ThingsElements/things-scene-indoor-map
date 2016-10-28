@@ -1,6 +1,6 @@
 import Quaternion from './quaternion';
 
-var { Component, Rect } = scene;
+var { Component, RectPath } = scene;
 
 const NATURE = {
   props: []
@@ -61,7 +61,7 @@ function rotate_by_euler(points, pitch, roll, yaw) {
   });
 }
 
-export default class Camera extends Rect {
+export default class Camera extends RectPath(Component) {
 
   _draw(context) {
 
