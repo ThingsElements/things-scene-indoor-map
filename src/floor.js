@@ -24,7 +24,9 @@ const NATURE = {
 
 export default class Floor extends Container {
 
-  drawText() {}
+  get isTextEdit() {
+    return false;
+  }
 
   /*
    * PATH 리스트를 직접 수정할 수 있는 지를 결정한다.

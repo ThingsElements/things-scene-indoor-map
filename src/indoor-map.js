@@ -101,9 +101,6 @@ export default class IndoorMap extends Container {
     floor.drawLocationMarkers(locations);
   }
 
-  onchange(after) {
-  }
-
 }
 
 Component.register('indoor-map', IndoorMap)
