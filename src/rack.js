@@ -16,9 +16,29 @@ const NATURE = {
     property: 'shelves'
   }, {
     type: 'string',
-    label: 'location',
-    name: 'location',
-    property: 'location'
+    label: 'location pattern',
+    name: 'locPattern',
+    property: 'locPattern'
+  }, {
+    type: 'string',
+    label: 'zone',
+    name: 'zone',
+    property: 'zone'
+  }, {
+    type: 'string',
+    label: 'section',
+    name: 'section',
+    property: 'section'
+  }, {
+    type: 'string',
+    label: 'unit',
+    name: 'unit',
+    property: 'unit'
+  }, {
+    type: 'string',
+    label: 'shelf pattern',
+    name: 'shelfPattern',
+    property: 'shelfPattern'
   }]
 }
 
