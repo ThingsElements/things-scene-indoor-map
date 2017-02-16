@@ -18,6 +18,7 @@ const NATURE = {
     type: 'string',
     label: 'location pattern',
     name: 'locPattern',
+    placeholder: '{z}{s}-{u}-{sh}',
     property: 'locPattern'
   }, {
     type: 'string',
@@ -38,6 +39,7 @@ const NATURE = {
     type: 'string',
     label: 'shelf pattern',
     name: 'shelfPattern',
+    placeholder: '#',
     property: 'shelfPattern'
   }]
 }
