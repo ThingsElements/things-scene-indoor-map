@@ -46,6 +46,10 @@ const NATURE = {
 
 export default class Rack extends RectPath(Component) {
 
+  is3dish() {
+    return true
+  }
+
   _draw(context) {
 
     var {
