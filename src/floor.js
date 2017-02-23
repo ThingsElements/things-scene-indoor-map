@@ -24,7 +24,7 @@ const NATURE = {
 
 export default class Floor extends Container {
 
-  get isTextEdit() {
+  get hasTextProperty() {
     return false;
   }
 

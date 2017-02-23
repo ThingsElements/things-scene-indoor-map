@@ -87,6 +87,10 @@ export default class Rack extends RectPath(Component) {
     return NATURE
   }
 
+  get hasTextProperty() {
+    return false;
+  }
+
 }
 
 Component.register('rack', Rack)
