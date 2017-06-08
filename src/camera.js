@@ -144,7 +144,22 @@ export default class Camera extends RectPath(Component) {
    * - 먼저, 아래 메쏘드의 이름을 수정한다. (_onchange ==> onchange)
    * - 그리고, 아래의 Component.memoize(Camera.prototype, 'transformed', false); 부분을 코멘트 처리한다.
    */
-  _onchange(after, before) {
+  onchange(after, before) {
+    if(after.hasOwnProperty('data')) {
+      let data = after.data;
+      if(!data.hasOwnProperty('yaw')
+      && !data.hasOwnProperty('pitch')
+      && !data.hasOwnProperty('roll'))
+        return;
+      
+      this.set({
+        yaw: data.yaw,
+        pitch: data.pitch,
+        roll: data.roll
+      })
+      return;
+    }
+
     if(!after.hasOwnProperty('yaw')
     && !after.hasOwnProperty('pitch')
     && !after.hasOwnProperty('roll'))
@@ -178,6 +193,6 @@ export default class Camera extends RectPath(Component) {
 
 }
 
-Component.memoize(Camera.prototype, 'transformed', false);
+// Component.memoize(Camera.prototype, 'transformed', false);
 
 Component.register('camera', Camera);
