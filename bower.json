@@ -1,6 +1,6 @@
 {
   "name": "things-scene-indoor-map",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
@@ -12,7 +12,7 @@
     "seed"
   ],
   "main": "things-scene-indoor-map.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
+  "license": "http://things-scene.hatiolab.com/EULA/",
   "homepage": "https://github.com/ThingsElements/things-scene-indoor-map/",
   "ignore": [
     "/.*",

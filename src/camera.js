@@ -1,3 +1,6 @@
+/*
+ * Copyright © HatioLab Inc. All rights reserved.
+ */
 import Quaternion from './quaternion';
 
 var { Component, RectPath } = scene;
@@ -151,7 +154,7 @@ export default class Camera extends RectPath(Component) {
       && !data.hasOwnProperty('pitch')
       && !data.hasOwnProperty('roll'))
         return;
-      
+
       this.set({
         yaw: data.yaw,
         pitch: data.pitch,

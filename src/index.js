@@ -1,3 +1,6 @@
+/*
+ * Copyright © HatioLab Inc. All rights reserved.
+ */
 export { default as Floor } from './floor'
 export { default as IndoorMap } from './indoor-map'
 export { default as Rack } from './rack'

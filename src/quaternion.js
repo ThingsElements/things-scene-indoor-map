@@ -1,3 +1,6 @@
+/*
+ * Copyright © HatioLab Inc. All rights reserved.
+ */
 export default class Quaternion {
 
   constructor(x, y, z, w) {
