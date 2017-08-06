@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "serve": "watchify src/*.js -o things-scene-indoor-map.js src/index.js & polyserve",
+    "serve": "watchify src/*.js -o things-scene-indoor-map.js src/index.js & polymer serve",
     "build": "browserify src/index.js -o things-scene-indoor-map.js && uglifyjs things-scene-indoor-map.js -m -c -o things-scene-indoor-map-min.js"
   },
   "repository": {
@@ -37,6 +37,5 @@
     "uglifyjs": "^2.4.10",
     "watchify": "^3.3.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

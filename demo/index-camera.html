@@ -14,6 +14,7 @@ Copyright © HatioLab Inc. All rights reserved.
     <link rel="import" href="../../things-scene-modeler/things-scene-properties.html">
 
     <link rel="import" href="./things-scene-indoor-map.html">
+    <link rel="import" href="../../things-scene-mqtt/things-scene-mqtt.html">
 
     <style is="custom-style">
 
@@ -34,7 +35,7 @@ Copyright © HatioLab Inc. All rights reserved.
                            scene='{{scene}}'
                            selected='{{selected}}'
                            model='[[model]]'
-                           mode="1">
+                           mode="0">
         <things-scene-layer type="selection-layer"></things-scene-layer>
         <things-scene-layer type="modeling-layer"></things-scene-layer>
         <things-scene-handler type="text-editor"></things-scene-handler>
@@ -71,6 +72,7 @@ Copyright © HatioLab Inc. All rights reserved.
           height: 1000,
           components: [{
             type: 'camera',
+            id: 'imu',
             left: 100,
             top: 100,
             width: 600,
@@ -81,6 +83,18 @@ Copyright © HatioLab Inc. All rights reserved.
             yaw: 0.2,
             pitch: 0.2,
             roll: 0.2
+          }, {
+            type: 'mqtt',
+            top: 100,
+            left: 100,
+            width: 100,
+            height: 100,
+            broker: 'localhost',
+            port: 1884,
+            topic: 'imu',
+            qos: 1,
+            retain: true,
+            clientId: 'MQTT-DEVICE-001'
           }]
         }
       });

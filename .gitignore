@@ -2,3 +2,4 @@ bower_components
 node_modules
 npm-debug.log
 things-scene-indoor-map.js
+.DS_Store
