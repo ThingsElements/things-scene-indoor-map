@@ -53,6 +53,10 @@ export default class Beacon extends RectPath(Component) {
     this.drawFill(context)
   }
 
+  is3dish() {
+    return true
+  }
+
   get nature() {
     return NATURE
   }

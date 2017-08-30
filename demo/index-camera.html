@@ -12,6 +12,7 @@ Copyright © HatioLab Inc. All rights reserved.
 
     <link rel="import" href="../../things-scene-viewer/things-scene-viewer.html">
     <link rel="import" href="../../things-scene-modeler/things-scene-properties.html">
+    <link rel="import" href="../../things-scene-mqtt/things-scene-mqtt.html">
 
     <link rel="import" href="./things-scene-indoor-map.html">
     <link rel="import" href="../../things-scene-mqtt/things-scene-mqtt.html">
@@ -71,6 +72,7 @@ Copyright © HatioLab Inc. All rights reserved.
           width:1000,
           height: 1000,
           components: [{
+            id: "hatio-imu",
             type: 'camera',
             id: 'imu',
             left: 100,
@@ -85,16 +87,18 @@ Copyright © HatioLab Inc. All rights reserved.
             roll: 0.2
           }, {
             type: 'mqtt',
-            top: 100,
-            left: 100,
-            width: 100,
-            height: 100,
-            broker: 'localhost',
-            port: 1884,
-            topic: 'imu',
-            qos: 1,
+            left: -10,
+            top: -10,
+            width: 30,
+            height: 30,
+            hidden: true,
+            broker: 'test.mosquitto.org',
+            port: 8080,
+            topic: 'hatio-imu',
+            qos: 0,
+            clientId: 'MQTT-DEVICE-001',
             retain: true,
-            clientId: 'MQTT-DEVICE-001'
+            format: 'JSON'
           }]
         }
       });
