@@ -19,7 +19,7 @@ const NATURE = {
     property: 'shelves'
   }, {
     type: 'string',
-    label: 'location pattern',
+    label: 'location-pattern',
     name: 'locPattern',
     placeholder: '{z}{s}-{u}-{sh}',
     property: 'locPattern'
@@ -40,7 +40,7 @@ const NATURE = {
     property: 'unit'
   }, {
     type: 'string',
-    label: 'shelf pattern',
+    label: 'shelf-pattern',
     name: 'shelfPattern',
     placeholder: '#',
     property: 'shelfPattern'
