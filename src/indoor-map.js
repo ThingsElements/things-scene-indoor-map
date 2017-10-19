@@ -54,9 +54,11 @@ export default class IndoorMap extends Container {
   _post_draw(context) {
 
     super._post_draw(context)
+    
+    if(this.app.isViewMode)
+      return
 
     var { left, top, width, fillStyle } = this.model
-
 
     // 이동 핸들 그리기
     context.beginPath();
@@ -75,6 +77,9 @@ export default class IndoorMap extends Container {
 
     if(super.contains(x, y))
       return true
+
+    if(this.app.isViewMode)
+      return false
 
     var { left, top, width } = this.bounds;
 
