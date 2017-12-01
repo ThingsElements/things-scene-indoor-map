@@ -10,20 +10,20 @@ const NATURE = {
 };
 
 const points = [
-  {x: 0, y: 0, z: 0},
-  {x: -50, y: +100, z: -100},
-  {x: +50, y: +100, z: -100},
-  {x: +50, y: -100, z: -100},
-  {x: -50, y: -100, z: -100},
-  {x: 0, y: 0, z: -100}, // 렌즈의 중심을 표현하는 좌표.
-  {x: 0, y: +50, z: -100} // 카메라의 위쪽을 표시하기위한 좌표.
+  { x: 0, y: 0, z: 0 },
+  { x: -50, y: +100, z: -100 },
+  { x: +50, y: +100, z: -100 },
+  { x: +50, y: -100, z: -100 },
+  { x: -50, y: -100, z: -100 },
+  { x: 0, y: 0, z: -100 }, // 렌즈의 중심을 표현하는 좌표.
+  { x: 0, y: +50, z: -100 } // 카메라의 위쪽을 표시하기위한 좌표.
 ];
 
 /* rotate_by_euler와 같이 동작하도록 순서를 맞춤. */
 function rotate_by_quaternion_axis(points, pitch, roll, yaw) {
-  var qx = Quaternion.fromAxis({x: 1, y: 0, z: 0}, pitch);
-  var qy = Quaternion.fromAxis({x: 0, y: 1, z: 0}, roll);
-  var qz = Quaternion.fromAxis({x: 0, y: 0, z: 1}, yaw);
+  var qx = Quaternion.fromAxis({ x: 1, y: 0, z: 0 }, pitch);
+  var qy = Quaternion.fromAxis({ x: 0, y: 1, z: 0 }, roll);
+  var qz = Quaternion.fromAxis({ x: 0, y: 0, z: 1 }, yaw);
 
   var q = qz.multiply(qy).multiply(qx);
 
@@ -70,12 +70,12 @@ export default class Camera extends RectPath(Component) {
 
     var transformed = this.transformed;
 
-    if(this.transformed[5].z > 0) {
-      this.__drawLines(context,transformed)
-      this.__drawRect(context,transformed)
+    if (this.transformed[5].z > 0) {
+      this.__drawLines(context, transformed)
+      this.__drawRect(context, transformed)
     } else {
-      this.__drawRect(context,transformed)
-      this.__drawLines(context,transformed)
+      this.__drawRect(context, transformed)
+      this.__drawLines(context, transformed)
     }
 
   }
@@ -148,11 +148,11 @@ export default class Camera extends RectPath(Component) {
    * - 그리고, 아래의 Component.memoize(Camera.prototype, 'transformed', false); 부분을 코멘트 처리한다.
    */
   onchange(after, before) {
-    if(after.hasOwnProperty('data')) {
+    if (after.hasOwnProperty('data')) {
       let data = after.data;
-      if(!data.hasOwnProperty('yaw')
-      && !data.hasOwnProperty('pitch')
-      && !data.hasOwnProperty('roll'))
+      if (!data.hasOwnProperty('yaw')
+        && !data.hasOwnProperty('pitch')
+        && !data.hasOwnProperty('roll'))
         return;
 
       this.set({
@@ -163,9 +163,9 @@ export default class Camera extends RectPath(Component) {
       return;
     }
 
-    if(!after.hasOwnProperty('yaw')
-    && !after.hasOwnProperty('pitch')
-    && !after.hasOwnProperty('roll'))
+    if (!after.hasOwnProperty('yaw')
+      && !after.hasOwnProperty('pitch')
+      && !after.hasOwnProperty('roll'))
       return;
 
     var self = this;
@@ -178,7 +178,7 @@ export default class Camera extends RectPath(Component) {
     this._anim_alpha_roll = diff_roll;
 
     this.animate({
-      step: function(delta) {
+      step: function (delta) {
         self._anim_alpha_yaw = diff_yaw * (1 - delta);
         self._anim_alpha_pitch = diff_pitch * (1 - delta);
         self._anim_alpha_roll = diff_roll * (1 - delta);

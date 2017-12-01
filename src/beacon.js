@@ -7,7 +7,7 @@ const NATURE = {
   mutable: false,
   resizable: true,
   rotatable: true,
-  properties : [{
+  properties: [{
     type: 'number',
     label: 'z-pos',
     name: 'zPos',
@@ -61,7 +61,7 @@ export default class Beacon extends RectPath(Component) {
     return NATURE
   }
 
-  get controls() {}
+  get controls() { }
 }
 
 Component.register('beacon', Beacon)

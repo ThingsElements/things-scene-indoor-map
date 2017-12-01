@@ -16,17 +16,18 @@ const NATURE = {
   mutable: false,
   resizable: true,
   rotatable: true,
-  properties : [{
+  properties: [{
     type: 'action',
     label: 'floor',
     name: 'floor',
     property: {
       icon: 'add-circle',
-      action: function(indoorMap) {
+      action: function (indoorMap) {
         indoorMap.addFloor()
       }
     }
-  }]
+  }],
+  'value-property': 'activeIndex'
 }
 
 export default class IndoorMap extends Container {
@@ -54,8 +55,8 @@ export default class IndoorMap extends Container {
   _post_draw(context) {
 
     super._post_draw(context)
-    
-    if(this.app.isViewMode)
+
+    if (this.app.isViewMode)
       return
 
     var { left, top, width, fillStyle } = this.model
@@ -75,10 +76,10 @@ export default class IndoorMap extends Container {
 
   contains(x, y) {
 
-    if(super.contains(x, y))
+    if (super.contains(x, y))
       return true
 
-    if(this.app.isViewMode)
+    if (this.app.isViewMode)
       return false
 
     var { left, top, width } = this.bounds;
@@ -87,7 +88,7 @@ export default class IndoorMap extends Container {
 
     var h = LABEL_HEIGHT
 
-    return (x < Math.max(right + LABEL_WIDTH, right ) && x > Math.min(right + LABEL_WIDTH, right)
+    return (x < Math.max(right + LABEL_WIDTH, right) && x > Math.min(right + LABEL_WIDTH, right)
       && y < Math.max(top + h, top) && y > Math.min(top + h, top));
   }
 

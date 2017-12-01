@@ -7,7 +7,7 @@ const NATURE = {
   mutable: false,
   resizable: true,
   rotatable: true,
-  properties : [{
+  properties: [{
     type: 'number',
     label: 'depth',
     name: 'depth',
