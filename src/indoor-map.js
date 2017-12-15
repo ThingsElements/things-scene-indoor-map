@@ -64,17 +64,6 @@ export default class IndoorMap extends Container {
 
     var { left, top, width, fillStyle } = this.model
 
-    // 이동 핸들 그리기
-    context.beginPath();
-
-    context.rect(left + width, top, LABEL_WIDTH, LABEL_HEIGHT)
-
-    let color = 255 - 20 % 255
-    context.fillStyle = rgba(color, color, color, 1)
-    context.fill()
-
-    context.closePath();
-
     // floor 선택 탭 그리기
     for(let i = 0;i < this.components.length;i++) {
       context.beginPath();
@@ -92,7 +81,7 @@ export default class IndoorMap extends Container {
   }
 
   contains(x, y) {
-    var contains = false;
+    var contains = super.contains(x, y);
 
     if (this.app.isViewMode)
       return contains
@@ -101,19 +90,10 @@ export default class IndoorMap extends Container {
     var right = left + width;
     var h = LABEL_HEIGHT
 
-    contains =
-      // component bound에 포함되는지
-      (x < Math.max(right, left) && x > Math.min(right, left)
-        && y < Math.max(top + height, top) && y > Math.min(top + height, top))
-      ||
+    contains = contains ||
       // card selector 영역에 포함되는지
       (x < Math.max(left - LABEL_WIDTH, left) && x > Math.min(left - LABEL_WIDTH, left)
         && y < Math.max(top + h * this.size(), top) && y > Math.min(top + h * this.size(), top))
-
-      ||
-      // 이동 핸들러 영역에 포함되는지
-      (x < Math.max(right + LABEL_WIDTH, right) && x > Math.min(right + LABEL_WIDTH, right)
-        && y < Math.max(top + h, top) && y > Math.min(top + h, top))
 
     if (contains)
       this._focused = true;
