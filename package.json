@@ -1,8 +1,9 @@
 {
-  "name": "things-scene-indoor-map",
+  "name": "@things-elements/things-scene-indoor-map",
+  "flat": true,
   "version": "2.0.11",
-  "description": "An element providing a starting point for your own reusable Polymer elements.",
-  "main": "index.js",
+  "description": "Indoor Map component for things-scene.",
+  "main": "things-scene-indoor-map-min.js",
   "directories": {
     "test": "test"
   },
@@ -37,5 +38,7 @@
     "uglifyjs": "^2.4.10",
     "watchify": "^3.3.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@hatiolab/things-scene": "^2.2.36"
+  }
 }
