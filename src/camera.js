@@ -66,7 +66,7 @@ function rotate_by_euler(points, pitch, roll, yaw) {
 
 export default class Camera extends RectPath(Component) {
 
-  _draw(context) {
+  render(context) {
 
     var transformed = this.transformed;
 

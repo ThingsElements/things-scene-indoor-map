@@ -43,7 +43,7 @@ const NATURE = {
 
 export default class Beacon extends RectPath(Component) {
 
-  _draw(context) {
+  render(context) {
     this.model.fillStyle = {
       type: 'pattern',
       fitPattern: true,

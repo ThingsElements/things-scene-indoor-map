@@ -52,9 +52,9 @@ export default class IndoorMap extends Container {
     return this.components[this.get('layoutConfig').activeIndex]
   }
 
-  _post_draw(context) {
+  postrender(context) {
 
-    super._post_draw(context)
+    super.postrender(context)
 
     if (this.app.isViewMode)
       return

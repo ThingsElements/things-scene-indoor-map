@@ -53,7 +53,7 @@ export default class Rack extends RectPath(Component) {
     return true
   }
 
-  _draw(context) {
+  draw(context) {
 
     var {
       left,
