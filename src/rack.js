@@ -1,7 +1,7 @@
 /*
  * Copyright © HatioLab Inc. All rights reserved.
  */
-var { Component, RectPath } = scene
+import { Component, RectPath } from '@hatiolab/things-scene'
 
 const NATURE = {
   mutable: false,

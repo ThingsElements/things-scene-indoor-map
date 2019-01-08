@@ -3,7 +3,7 @@
  */
 import Quaternion from './quaternion';
 
-var { Component, RectPath } = scene;
+import { Component, RectPath } from '@hatiolab/things-scene';
 
 const NATURE = {
   props: []

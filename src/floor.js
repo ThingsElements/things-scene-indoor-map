@@ -1,7 +1,7 @@
 /*
  * Copyright © HatioLab Inc. All rights reserved.
  */
-var { Component, Container, CardLayout, Model } = scene
+import { Component, Container, CardLayout, Model } from '@hatiolab/things-scene'
 
 const NATURE = {
   mutable: false,
