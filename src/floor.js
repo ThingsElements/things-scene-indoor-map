@@ -7,32 +7,31 @@ const NATURE = {
   mutable: false,
   resizable: true,
   rotatable: true,
-  properties: [{
-    type: 'action',
-    label: 'remove',
-    name: 'remove',
-    property: {
-      icon: 'remove-circle',
-      action: function (floor) {
-        let indoor = floor.parent;
-        indoor.removeComponent(floor);
-
-        indoor.activeIndex = 0
-
-        indoor.invalidate()
+  properties: [
+    {
+      type: 'action',
+      label: 'remove',
+      name: 'remove',
+      property: {
+        icon: 'remove-circle',
+        action: function(floor) {
+          let indoor = floor.parent
+          indoor.removeComponent(floor)
+          indoor.activeIndex = 0
+          indoor.invalidate()
+        }
       }
     }
-  }]
+  ]
 }
 
 export default class Floor extends Container {
-
   get hasTextProperty() {
-    return false;
+    return false
   }
 
   get showMoveHandle() {
-    return false;
+    return false
   }
 
   /*
@@ -71,7 +70,6 @@ export default class Floor extends Container {
   }
 
   drawLocationMarkers(locations) {
-
     for (let uuid in locations) {
       let locInfo = locations[uuid]
       let props = locInfo.props || {}
@@ -79,7 +77,7 @@ export default class Floor extends Container {
       props.width = props.width || 10
       props.height = props.height || 10
 
-      let currentTime = (new Date()).getTime()
+      let currentTime = new Date().getTime()
       // let diffTime = 500
       let diffTime = currentTime - locInfo.lastUpdateTime
 
@@ -94,23 +92,25 @@ export default class Floor extends Container {
             movingObject[key] = props[key]
           }
         } else {
-
           // TODO: marker의 초기값 관련 로직 정리 필요.
 
-          let config = Object.assign({
-            type: locInfo.type || "rect",
-            // type: locInfo.type || "camera",
-            id: uuid,
-            fillStyle: 'red',
-            left: props.center.x - props.width * 0.5,
-            top: props.center.y - props.height * 0.5,
-            cx: props.center.x,
-            cy: props.center.y
-          }, props)
+          let config = Object.assign(
+            {
+              type: locInfo.type || 'rect',
+              // type: locInfo.type || "camera",
+              id: uuid,
+              fillStyle: 'red',
+              left: props.center.x - props.width * 0.5,
+              top: props.center.y - props.height * 0.5,
+              cx: props.center.x,
+              cy: props.center.y
+            },
+            props
+          )
 
-          let marker = Model.compile(config);
+          let marker = Model.compile(config)
 
-          this.addComponent(marker);
+          this.addComponent(marker)
 
           // movingObject = this.findById(uuid)
           // if(movingObject) {
@@ -123,14 +123,10 @@ export default class Floor extends Container {
       }
 
       this.invalidate()
-
     }
-
   }
 
   simulate(point) {
-
-
     // for(let i in this.components) {
     //   if(this.components[i].model.type != 'beacon')
     //     continue;
@@ -149,30 +145,32 @@ export default class Floor extends Container {
     let beacons = []
 
     for (let i in this.components) {
-      if (this.components[i].model.type != 'beacon')
-        continue
+      if (this.components[i].model.type != 'beacon') continue
 
       let beacon = this.components[i]
 
-      beacon.distance = Math.sqrt(Math.pow(beacon.center.x - point.x, 2) + Math.pow(beacon.center.y - point.y, 2))
-      beacon.gaussian = gaussian(beacon.model.txPower || -71, Math.pow(3.209, 2))
+      beacon.distance = Math.sqrt(
+        Math.pow(beacon.center.x - point.x, 2) +
+          Math.pow(beacon.center.y - point.y, 2)
+      )
+      beacon.gaussian = gaussian(
+        beacon.model.txPower || -71,
+        Math.pow(3.209, 2)
+      )
       beacon.txPower = beacon.gaussian.ppf(Math.random())
 
-      beacons.push(beacon);
+      beacons.push(beacon)
     }
 
     beacons = beacons.slice(0)
 
     this.calculatePosition(beacons, point)
-
   }
 
   calculatePosition(nodeArr, position) {
-
     let beacons = nodeArr
 
-    beacons.sort(function (a, b) {
-
+    beacons.sort(function(a, b) {
       let rssiA = -10 * Math.log10(a.distance) + a.txPower
       let rssiB = -10 * Math.log10(b.distance) + b.txPower
 
@@ -182,19 +180,18 @@ export default class Floor extends Container {
     let beaconCombs = this.k_combinations(beacons.slice(0, 4), 3)
     let positions = []
 
-
     for (let i in beaconCombs) {
       let beaconComb = beaconCombs[i]
       let beaconA = beaconComb[0]
       let beaconB = beaconComb[1]
       let beaconC = beaconComb[2]
 
-      let xa = beaconA.center.x;
-      let ya = beaconA.center.y;
-      let xb = beaconB.center.x;
-      let yb = beaconB.center.y;
-      let xc = beaconC.center.x;
-      let yc = beaconC.center.y;
+      let xa = beaconA.center.x
+      let ya = beaconA.center.y
+      let xb = beaconB.center.x
+      let yb = beaconB.center.y
+      let xc = beaconC.center.x
+      let yc = beaconC.center.y
       let ra = beaconA.distance
       let rb = beaconB.distance
       let rc = beaconC.distance
@@ -211,13 +208,25 @@ export default class Floor extends Container {
       rb = this.calculateDistance(beaconB.txPower, rssiB) * 100
       rc = this.calculateDistance(beaconC.txPower, rssiC) * 100
 
-      let xaSq = xa * xa, xbSq = xb * xb, xcSq = xc * xc, yaSq = ya * ya, ybSq = yb * yb, ycSq = yc * yc, raSq = ra * ra, rbSq = rb * rb, rcSq = rc * rc;
-      let numerator1 = (xb - xa) * (xcSq + ycSq - rcSq) + (xa - xc) * (xbSq + ybSq - rbSq) + (xc - xb) * (xaSq + yaSq - raSq);
-      let denominator1 = 2 * (yc * (xb - xa) + yb * (xa - xc) + ya * (xc - xb));
-      let y = numerator1 / denominator1;
-      let numerator2 = rbSq - raSq + xaSq - xbSq + yaSq - ybSq - 2 * (ya - yb) * y;
-      let denominator2 = 2 * (xa - xb);
-      let x = numerator2 / denominator2;
+      let xaSq = xa * xa,
+        xbSq = xb * xb,
+        xcSq = xc * xc,
+        yaSq = ya * ya,
+        ybSq = yb * yb,
+        ycSq = yc * yc,
+        raSq = ra * ra,
+        rbSq = rb * rb,
+        rcSq = rc * rc
+      let numerator1 =
+        (xb - xa) * (xcSq + ycSq - rcSq) +
+        (xa - xc) * (xbSq + ybSq - rbSq) +
+        (xc - xb) * (xaSq + yaSq - raSq)
+      let denominator1 = 2 * (yc * (xb - xa) + yb * (xa - xc) + ya * (xc - xb))
+      let y = numerator1 / denominator1
+      let numerator2 =
+        rbSq - raSq + xaSq - xbSq + yaSq - ybSq - 2 * (ya - yb) * y
+      let denominator2 = 2 * (xa - xb)
+      let x = numerator2 / denominator2
 
       if (Number.isFinite(x) && Number.isFinite(y)) {
         positions.push({
@@ -225,15 +234,11 @@ export default class Floor extends Container {
           y: y
         })
       }
-
     }
-
 
     let avgPosition = this.averageOfPositions(positions)
 
-
-    if (this._simPosition)
-      this.removeComponent(this._simPosition)
+    if (this._simPosition) this.removeComponent(this._simPosition)
 
     this._simPosition = Model.compile({
       type: 'ellipse',
@@ -242,33 +247,31 @@ export default class Floor extends Container {
       rx: 10,
       ry: 10,
       fillStyle: 'navy'
-    });
+    })
 
     this.addComponent(this._simPosition)
-
   }
 
   calculateDistance(txPower, rssi) {
     if (rssi == 0) {
-      return -1.0; // if we cannot determine distance, return -1.
+      return -1.0 // if we cannot determine distance, return -1.
     }
 
-    let ratio = rssi * 1.0 / txPower;
+    let ratio = (rssi * 1.0) / txPower
     if (ratio < 1.0) {
-      return Math.pow(ratio, 10);
-    }
-    else {
-      let accuracy = (0.89976) * Math.pow(ratio, 7.7095) + 0.111;
-      return accuracy;
+      return Math.pow(ratio, 10)
+    } else {
+      let accuracy = 0.89976 * Math.pow(ratio, 7.7095) + 0.111
+      return accuracy
     }
   }
 
   calculateAngle(p1, p2, p3) {
     let l1 = Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2),
       l2 = Math.pow(p2.x - p3.x, 2) + Math.pow(p2.y - p3.y, 2),
-      l3 = Math.pow(p3.x - p1.x, 2) + Math.pow(p3.y - p1.y, 2);
+      l3 = Math.pow(p3.x - p1.x, 2) + Math.pow(p3.y - p1.y, 2)
 
-    return Math.acos((l1 + l2 - l3) / Math.sqrt(4 * l1 * l2));
+    return Math.acos((l1 + l2 - l3) / Math.sqrt(4 * l1 * l2))
   }
 
   averageOfPositions(p) {
@@ -288,26 +291,26 @@ export default class Floor extends Container {
   }
 
   k_combinations(set, k) {
-    var i, j, combs, head, tailcombs;
+    var i, j, combs, head, tailcombs
 
     // There is no way to take e.g. sets of 5 elements from
     // a set of 4.
     if (k > set.length || k <= 0) {
-      return [];
+      return []
     }
 
     // K-sized set has only one K-sized subset.
     if (k == set.length) {
-      return [set];
+      return [set]
     }
 
     // There is N 1-sized subsets in a N-sized set.
     if (k == 1) {
-      combs = [];
+      combs = []
       for (i = 0; i < set.length; i++) {
-        combs.push([set[i]]);
+        combs.push([set[i]])
       }
-      return combs;
+      return combs
     }
 
     // Assert {1 < k < set.length}
@@ -329,24 +332,23 @@ export default class Floor extends Container {
     // element so they are already computed and stored. When the length
     // of the subsequent list drops below (k-1), we cannot find any
     // (k-1)-combs, hence the upper limit for the iteration:
-    combs = [];
+    combs = []
     for (i = 0; i < set.length - k + 1; i++) {
       // head is a list that includes only our current element.
-      head = set.slice(i, i + 1);
+      head = set.slice(i, i + 1)
       // We take smaller combinations from the subsequent elements
-      tailcombs = this.k_combinations(set.slice(i + 1), k - 1);
+      tailcombs = this.k_combinations(set.slice(i + 1), k - 1)
       // For each (k-1)-combination we join it with the current
       // and store it to the set of k-combinations.
       for (j = 0; j < tailcombs.length; j++) {
-        combs.push(head.concat(tailcombs[j]));
+        combs.push(head.concat(tailcombs[j]))
       }
     }
-    return combs;
+    return combs
   }
 
   onclick(e) {
-
-    return;
+    return
 
     let point = this.transcoordC2S(e.offsetX, e.offsetY)
 
@@ -361,7 +363,7 @@ export default class Floor extends Container {
       rx: 10,
       ry: 10,
       fillStyle: 'red'
-    });
+    })
 
     this.addComponent(this._clickPoint)
     this.simulate(point)
