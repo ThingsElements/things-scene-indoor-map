@@ -1,7 +1,7 @@
 /*
  * Copyright © HatioLab Inc. All rights reserved.
  */
-import { html } from '@polymer/lit-element'
+import { html, css } from 'lit-element'
 import { ThingsEditorProperty } from '@hatiolab/things-shell/things-module'
 import '@polymer/paper-icon-button/paper-icon-button'
 
@@ -10,11 +10,10 @@ export default class ThingsEditorAction extends ThingsEditorProperty {
     return 'things-editor-action'
   }
 
-  editorTemplate(props) {
-    var property = props.property || {}
-    var { icon, action } = property
-    return html`
-      <style>
+  static get styles() {
+    return [
+      ...ThingsEditorProperty.styles,
+      css`
         :host > label {
           display: flex;
           grid-column: span 3;
@@ -22,7 +21,14 @@ export default class ThingsEditorAction extends ThingsEditorProperty {
           align-items: center;
           justify-self: right;
         }
-      </style>
+      `
+    ]
+  }
+
+  editorTemplate(props) {
+    var property = props.property || {}
+    var { icon, action } = property
+    return html`
       <paper-icon-button
         .icon=${icon}
         @click=${
