@@ -1,6 +1,6 @@
 {
   "name": "@things-scene/indoor-map",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "Indoor Map component for things-scene.",
   "main": "src/index.js",
   "things-scene": true,
