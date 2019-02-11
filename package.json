@@ -1,8 +1,10 @@
 {
   "name": "@things-scene/indoor-map",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Indoor Map component for things-scene.",
-  "main": "src/index.js",
+  "main": "dist/things-scene-indoor-map.js",
+  "module": "dist/things-scene-indoor-map.mjs",
+  "jsnext:main": "dist/things-scene-indoor-map.mjs",
   "things-scene": true,
   "directories": {
     "test": "test"
