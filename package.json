@@ -1,6 +1,6 @@
 {
   "name": "@things-scene/indoor-map",
-  "version": "2.3.6",
+  "version": "2.3.8",
   "description": "Indoor Map component for things-scene.",
   "main": "dist/things-scene-indoor-map.js",
   "module": "dist/things-scene-indoor-map.mjs",
@@ -13,8 +13,8 @@
     "serve": "things-shell",
     "serve:dev": "things-shell-dev",
     "build:client": "webpack --config node_modules/@hatiolab/things-shell/webpack.config.js && webpack",
-    "build": "webpack",
-    "prepublish": "webpack"
+    "build": "rollup -c",
+    "prepublish": "rollup -c"
   },
   "repository": {
     "type": "git",
