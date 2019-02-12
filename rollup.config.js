@@ -21,7 +21,7 @@ export default [
     external,
     output: [
       {
-        file: pkg.main,
+        file: "dist/things-scene-indoor-map.js",
         name: "things-scene-indoor-map",
         format: "umd",
         globals: {
