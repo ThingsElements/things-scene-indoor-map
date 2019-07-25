@@ -2,8 +2,7 @@
  * Copyright © HatioLab Inc. All rights reserved.
  */
 import { html, css } from 'lit-element'
-import { ThingsEditorProperty } from '@hatiolab/things-shell/things-module'
-import '@polymer/paper-icon-button/paper-icon-button'
+import { ThingsEditorProperty } from '@things-factory/board-ui/client/modeller-module'
 
 export default class ThingsEditorAction extends ThingsEditorProperty {
   static get is() {
