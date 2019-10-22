@@ -1,7 +1,7 @@
 /*
  * Copyright © HatioLab Inc. All rights reserved.
  */
-import { Component, Container, CardLayout, Model } from '@hatiolab/things-scene'
+import { CardLayout, Component, Container, Model } from '@hatiolab/things-scene'
 
 const LABEL_WIDTH = 25
 const LABEL_HEIGHT = 25
@@ -21,7 +21,7 @@ const NATURE = {
       name: 'floor',
       property: {
         icon: 'add-circle',
-        action: function(indoorMap) {
+        action: indoorMap => {
           indoorMap.addFloor()
         }
       }
